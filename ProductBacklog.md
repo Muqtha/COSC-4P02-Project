@@ -3,5 +3,5 @@
 - Front End
 	- Accessability Features
 	- Mobile Support
-	-Intro menu
-	-Input bar
+	- Intro menu
+	- Input bar
