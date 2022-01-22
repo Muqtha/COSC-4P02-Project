@@ -13,6 +13,7 @@ Michael Woody - 6369201
 Jordan Chilcott - 6271357  
 Yanis Souiki - 6284392  
 Kam Sadiq - 6365548  
+Christian Perdigao - 6223283  
 
 Project Description:  
 We plan to develop a chatbot software that will be accessed through a website to answer inquiries on the Niagara 2022 Canada Games. The software will take in questions as text and deliver answers and services to the user.  
