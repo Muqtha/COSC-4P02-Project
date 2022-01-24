@@ -1,0 +1,51 @@
+# User Stories
+
+- As a user, I want to see example questions/input at the beginning of a chat-bot interaction to get a sense as to what the chat-bot is capable off and how I should structure my questions.
+- As a user, I want to be able to inquire about volunteer opportunities so that I can potentially sign up.
+- As a user, I want to be able to access the chat-bot 24/7 so that I don’t have to wait for assistance.
+- As an administrator, I want to include a brief survey at the end of each customer chat-bot interaction where they can rate their experience so that customer satisfaction can be tracked.
+- As an administrator, I want the chat-bot’s interface to adhere to accessibility standards so that any type of user can access this service. 
+- From my own answers on the assignment: 
+- As a user, I want to be able to ask questions to get answers.
+- As a user, I want to be able to book tickets for specific games or events.
+- As a user, I want to be able to check the availably of merchandise in the store.
+- As a database admin, I want to be able to update the database after games or events.
+- As a user, I want to be able to track my orders from the merchandise store.
+- As a manager, I want to collect customer feedback on chatbot experience.
+- As a systems admin, I want to be able to smoothly help customers when support is handed over by chatbot.
+- As a marketing manager, I want the chatbot to be able to smoothly advertise merchandise and events.
+- As a database admin, I want to be able to effectively secure emails and accounts.
+- As a user, I want to be able to smoothly interact with the chatbot.
+- As a user, I want to be able to view new merchandise in the store.
+- As a user, I want to be able to get information on games or events.
+- As a user, I want the chatbot to be a personal shopping assistant.
+- As a database admin, I want the chatbot to operate under a system that smoothly interacts with the type of database used.
+- As a marketing manager, I want the chatbot to also work as a sales agent.
+- As a user, I want to be able to ask the chatbot where I can watch the games and events live.
+- As a manager, I want to be able to retrieve interaction estimates (how frequently users use the chatbot).
+- As a user, I want to be able to view my history.
+- As a database admin, I want the database to keep track of user history and information and also authenticate this user.
+- As a user, I would like to be welcomed by the chatbot.
+- As a user, I would like a description of the Canada games
+- As a user, I would like some history on the Canada games or sports.
+- As a user, I would like to interact with the bot as if it were human.
+- As an administrator, I would like to organize the database so the bot can find accurate information for responses easier
+- As a user, I would like to close the chat when I am done.
+- As a user, I would like to scroll through previous messages.
+- As a manager, I would like for the bot to answer a variety of questions.
+- As a manager, I would like for the bot to properly understand user input.
+- As a manager, I would the bot to provide a reliable source for questions it cannot answer directly.
+- As a user, I want the bot to provide event locations.
+- As a user, I would like the bot be relatively quick in responding.
+- As a user, I would like a clear indication from the bot that it has received my input.
+- As a manager, I would the software to be accessed on multiple devices.
+- As a user, I would like an appealing visual appearance to the software.
+- As a user, I would like the bot to provide me with a schedule for the games.
+- As a user, I would like to know the scores of teams and players.
+- As a user, I would like to be able to view scores of ongoing events.
+- As an user, I would like to be able to request the schedule of events I am registered for, so I can keep track of my schedule.
+- As a manager, I would like the bot to direct any questions that it doesn’t understand after a few attempts, to an available dev, so that the user can get the help they need.
+- As a spectator, I would like to be able to request the venue of a specific event, so that I may spectate it
+- As a manager, I would like to be able to view logs of chatbot conversations, so I am aware of any issues.t.
+- As a developer, I would like the bot to respond to some hidden test statements, for debugging purposes as a sort of live test.
+- As a spectator, I would like the bot to inform me of all headliner events, so that I may attend them if I choose. 
