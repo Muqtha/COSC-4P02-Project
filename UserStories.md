@@ -5,7 +5,6 @@
 - As a user, I want to be able to access the chat-bot 24/7 so that I don’t have to wait for assistance.
 - As an administrator, I want to include a brief survey at the end of each customer chat-bot interaction where they can rate their experience so that customer satisfaction can be tracked.
 - As an administrator, I want the chat-bot’s interface to adhere to accessibility standards so that any type of user can access this service. 
-- From my own answers on the assignment: 
 - As a user, I want to be able to ask questions to get answers.
 - As a user, I want to be able to book tickets for specific games or events.
 - As a user, I want to be able to check the availably of merchandise in the store.
