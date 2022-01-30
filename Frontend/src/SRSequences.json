@@ -1,0 +1,97 @@
+{
+    "SRSequences": 
+    [ 
+        {
+            "topic" : "help" ,
+            "pattern" : 
+            [
+                "What can I ask?",
+                "What can you do"
+            ] ,
+            "response" : 
+            [
+                "You can ask me questions about the event, games played at the event, information about the teams and athletes, their acheivements and more!"
+            ]  
+        } ,
+
+        {
+            "topic" : "greeting" ,
+            "pattern" : 
+            [
+                "Hi",
+                "How are you?",
+                "whats up",
+                "sup",
+                "hello",
+                "Hey",
+                "Good day"
+            ] ,
+            "response" : 
+            [
+                "Hi, how are you doing?",
+                "Hey :)",
+                "How may I be of service?",
+                "What can I do for you today?",
+                "Hello, what questions do you have for me? :D"
+            ]
+        } ,
+
+        {
+            "topic" : "CG_Description" ,
+            "pattern" : 
+            [
+                "what are the canada games?",
+                "Tell me about Canada Games",
+                "what is Canada Games?",
+                "What is niagara 2022 canada games about"
+            ] ,
+            "response" : 
+            [
+                "It is held every 2 years, alternating between winter and summer, the Canada Games are the country’s marquee event for amateur sport representing the highest level of national competition for thousands of up-and-coming Canadian athletes. As the best in their age group, these young competitors come to the Games having trained long and hard to be among those chosen to represent their respective province or territory.",
+                "The Canada Games is an event for commited and determined young Canadian athletes to compete at the highest national level for a chance to represent their province or territory.",
+                "Here is a link that might help you find what you're looking for: https://niagara2022games.ca/about/. Hope it helps!",
+                "The Canada Games brings together more than 2,000 able-bodied athletes and athletes with physical and intellectual disabilities for the largest amateur multi-sport event in the country. Alternating between winter and summer, they span over 30 different sports to showcase the very best in Canadian sport and spirit.",
+                "This is what I found, https://www.canadagames.ca/about/faq"
+            ]
+        },
+
+        {
+            "topic" : "sports" ,
+            "pattern" : 
+            [
+                "What sports are there?",
+                "what games are at the event",
+                "what are the games",
+                "what kind of sports are played?"
+            ] ,
+            "response" : 
+            [
+                "Here is a list of the sports at this year's event:\n-Athletics\t-Baseball\n-Basketball\t-Beach Volleyball\n-Box Lacrosse\t-Canoe Kayak\n-Cycling\t-Diving\n-Golf\t-Mountain Bike\n-Rowing\t-Rugby Sevens\n-Sailing\t-Soccer\n-Softball\t-Swimming\n-Tennis\t-Triathlon\n-Volleyball\t-Wrestling",
+                "Some of the sports are Athletics, Baseball, Basketball, and Beach Volleyball. You can view more here https://niagara2022games.ca/sports/."
+            ]
+        },
+
+        {
+            "topic" : "close" ,
+            "pattern" : 
+            [
+                "Bye",
+                "It was nice talking to you",
+                "Thanks for your help",
+                "see ya later"
+            ] ,
+            "response" : 
+            [
+                "Bye.",
+                "It was nice talking to you!",
+                "Hope you found what you were looking for.",
+                "Peace out.",
+                "Have a good day!",
+                "Enjoy the rest of your day.",
+                "Thanks for visiting.",
+                "I bid you adieu.",
+                "See ya!"
+            ]
+        }
+    ]
+}
