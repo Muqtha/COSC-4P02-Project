@@ -29,16 +29,10 @@ type ChatbotProps = {
   waitingForResponse: boolean
 }
 
-// type Message = {
-//   type: 'question' | 'response'
-//   message: string
-// }
-
 const Chatbot = ({ chatLog, setChatLog, query, waitingForResponse }: ChatbotProps) => {
 
   const initialFocusRef = React.useRef<HTMLInputElement>(null)
   const messagesEndRef = React.useRef<HTMLDivElement>(null)
-  // const [chatLog, setChatLog] = React.useState<Message[]>([{ type: 'response', message: 'How can we help you today?'}])
   const [inputValue, setInputValue] = React.useState('')
   const { colorMode, toggleColorMode } = useColorMode()
   
@@ -66,10 +60,7 @@ const Chatbot = ({ chatLog, setChatLog, query, waitingForResponse }: ChatbotProp
     if (inputValue) {
       setChatLog(oldChatLog => oldChatLog.concat([{ type: 'question', message: inputValue }]))
       setInputValue('')
-      // setWaitingForResponse(true)
       query(inputValue)
-      // const response = await query(inputValue)
-      // setChatLog(oldChatLog => oldChatLog.concat([{ type: 'response', message: response }]))
     }
   }
 
@@ -86,7 +77,7 @@ const Chatbot = ({ chatLog, setChatLog, query, waitingForResponse }: ChatbotProp
           pos='fixed'
           bottom='40px'
           right='2%'
-        >Chatbot</Button>
+        >{`Chatbot (v${process.env.REACT_APP_VERSION})`}</Button>
       </PopoverTrigger>
       <PopoverContent mr='8' w={['sm', 'lg']}>
         <PopoverArrow />
