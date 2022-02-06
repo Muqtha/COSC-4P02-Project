@@ -1,5 +1,4 @@
 import * as tf from '@tensorflow/tfjs'
-// import '@tensorflow/tfjs'
 import * as use from '@tensorflow-models/universal-sentence-encoder'
 import * as qna from './qna'
 import { UniversalSentenceEncoderQnA } from '@tensorflow-models/universal-sentence-encoder/dist/use_qna'
@@ -32,7 +31,7 @@ const loadCategoryModel = async () => {
   postMessage({ type: 'categoryModelLoaded' })
 }
 
-// the first query takes longer and blocks UI thread, so this is called when the page loads to get that out of the way
+// the first query takes longer, so this is called after the model loads to get that out of the way
 const dummyQuery = async (m: UniversalSentenceEncoderQnA) => {
   const queryParameters = {
     queries: ['dummyQuestion'],
@@ -45,20 +44,11 @@ const dummyQuery = async (m: UniversalSentenceEncoderQnA) => {
 
 const loadContextModel = async () => {
   contextModel = await qna.load()
-  // await testContext(contextModel)
   postMessage({ type: 'contextModelLoaded' })
 }
 
-// const testContext = async (m: qna.QuestionAndAnswer) => {
-//   const a = await m.findAnswers('Who is fine?', 'You are fine. We are fine. Everyone is fine.')
-//   console.log(a)
-// }
-
 onmessage = async ({ data: { cmd, parameters } }: MessageEvent<MessageData>) => {
   switch (cmd) {
-    case 'loadModel':
-      loadCategoryModel()
-      break
     case 'loadModels':
       loadCategoryModel()
       loadContextModel()
@@ -93,15 +83,23 @@ onmessage = async ({ data: { cmd, parameters } }: MessageEvent<MessageData>) => 
       // top 5 results only
       postMessage({ type: 'categoryResult', value: sortedResults.slice(0,5) })
    
-      const answers = await contextModel.findAnswers(input.concat(' My'), context[sortedResults[0].category])
-      
-      postMessage({ type: 'queryResult', value: answers })
+      const categoryContext = context[sortedResults[0].category]
 
-      if (answers.length > 0) {
-        postMessage({ type: 'finalAnswer', value: answers[0].text })
+      if (categoryContext) {
+        const answers = await contextModel.findAnswers(input, context[sortedResults[0].category])
+  
+        postMessage({ type: 'queryResult', value: answers })
+        
+        if (answers.length > 0) {
+          postMessage({ type: 'finalAnswer', value: answers[0].text })
+        } else {
+          postMessage({ type: 'finalAnswer', value: 'Unfortunately we don\'t have an answer for that question' })
+        }
       } else {
-        postMessage({ type: 'finalAnswer', value: 'Yeah, I got nothing, sorry' })
+        postMessage({ type: 'queryResult', value: [] })
+        postMessage({ type: 'finalAnswer', value: `Sorry, we have no information about ${sortedResults[0].category} currently` })
       }
+
       break
   }
 }
