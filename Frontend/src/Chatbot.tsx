@@ -1,6 +1,6 @@
 import React from 'react'
 import './Chatbot.css'
-import { ChatIcon } from '@chakra-ui/icons'
+import { ChatIcon, EmailIcon, MoonIcon, SunIcon } from '@chakra-ui/icons'
 import {
   Button,
   Input,
@@ -14,31 +14,34 @@ import {
   PopoverCloseButton,
   Tag,
   TagLabel,
+  Text,
   VStack,
+  useColorMode,
+  IconButton,
+  chakra
 } from '@chakra-ui/react'
+import { Message } from './App'
 
-type Message = {
-  type: 'question' | 'response'
-  message: string
+type ChatbotProps = {
+  chatLog: Message[]
+  setChatLog: React.Dispatch<React.SetStateAction<Message[]>>
+  query: (input: string) => void
+  waitingForResponse: boolean
 }
 
-function Chatbot() {
+// type Message = {
+//   type: 'question' | 'response'
+//   message: string
+// }
+
+const Chatbot = ({ chatLog, setChatLog, query, waitingForResponse }: ChatbotProps) => {
+
   const initialFocusRef = React.useRef<HTMLInputElement>(null)
   const messagesEndRef = React.useRef<HTMLDivElement>(null)
-  const [chatLog, setChatLog] = React.useState<Message[]>([{ type: 'response', message: 'How can we help you today?'}])
+  // const [chatLog, setChatLog] = React.useState<Message[]>([{ type: 'response', message: 'How can we help you today?'}])
   const [inputValue, setInputValue] = React.useState('')
-  const [waitingForResponse, setWaitingForResponse] = React.useState(false)
-
-  // Sends response if the user is waiting for one
-  React.useEffect(() => {
-    if (waitingForResponse) {
-      setTimeout(() => {
-        setChatLog(oldChatLog => oldChatLog.concat([{ type: 'response', message: 'A very well thought out answer that is definitely correct.' }]))
-        setWaitingForResponse(false)
-      }, 3000)
-    }
-  }, [waitingForResponse])
-
+  const { colorMode, toggleColorMode } = useColorMode()
+  
   // Keeps chatbox window scrolled to the bottom to show the most recent texts
   React.useEffect(() => {
     scrollToBottom()
@@ -52,21 +55,28 @@ function Chatbot() {
     setInputValue(event.target.value)
   }
 
-  // Adds a question to the chatlog, clears the question input, and waits for a response
-  const addQuestion = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      if (inputValue) {
-        setChatLog(oldChatLog => oldChatLog.concat([{ type: 'question', message: inputValue }]))
-        setInputValue('')
-        setWaitingForResponse(true)
-      }
+      addQuestion();
+    }
+  }
+
+  // Adds a question to the chatlog, clears the question input, and waits for a response
+  const addQuestion = async () => {
+    if (inputValue) {
+      setChatLog(oldChatLog => oldChatLog.concat([{ type: 'question', message: inputValue }]))
+      setInputValue('')
+      // setWaitingForResponse(true)
+      query(inputValue)
+      // const response = await query(inputValue)
+      // setChatLog(oldChatLog => oldChatLog.concat([{ type: 'response', message: response }]))
     }
   }
 
   return (
     <Popover
       initialFocusRef={initialFocusRef}
-      closeOnBlur={false}
+      // closeOnBlur={false}
       placement='top'
     >
       <PopoverTrigger>
@@ -78,10 +88,13 @@ function Chatbot() {
           right='2%'
         >Chatbot</Button>
       </PopoverTrigger>
-      <PopoverContent mr='8' w='lg'>
+      <PopoverContent mr='8' w={['sm', 'lg']}>
         <PopoverArrow />
         <PopoverCloseButton />
-        <PopoverHeader>Chatbot</PopoverHeader>
+        <PopoverHeader display='flex' justifyContent='space-around'>
+          <IconButton size='xs' onClick={toggleColorMode} variant='ghost' aria-label='Toggle lighting mode' icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />} />
+          <Text w='100%' mr='22' align='center'>Chatbot</Text>
+        </PopoverHeader>
         <PopoverBody 
           maxH='60vh' 
           overflowY='auto'
@@ -94,7 +107,6 @@ function Chatbot() {
             },
             '&::-webkit-scrollbar-thumb': {
               bg: 'blue.600',
-              // bg: 'gray.700',
               borderRadius: '20px',
             },
           }}>
@@ -105,26 +117,27 @@ function Chatbot() {
               </Tag>
             ))}
             {waitingForResponse && 
-              <Tag className="container" alignSelf='flex-start'>
+              <Tag className='container' alignSelf='flex-start'>
                 <TagLabel>
-                  <span className="dot"></span>
-                  <span className="dot"></span>
-                  <span className="dot"></span>
+                  <chakra.span className='dot' bg={colorMode === 'light' ? 'gray.800' : 'gray.200'}></chakra.span>
+                  <chakra.span className='dot' bg={colorMode === 'light' ? 'gray.800' : 'gray.200'}></chakra.span>
+                  <chakra.span className='dot' bg={colorMode === 'light' ? 'gray.800' : 'gray.200'}></chakra.span>
                 </TagLabel>
               </Tag>
             }
             <div ref={messagesEndRef}></div>
           </VStack>
         </PopoverBody>
-        <PopoverFooter>
+        <PopoverFooter display='flex'>
           <Input 
             ref={initialFocusRef}
             variant='filled'
             placeholder='Type your questions here'
-            onKeyPress={(e) => addQuestion(e)} 
+            onKeyPress={handleKeyPress} 
             onChange={handleInputChange} 
             value={inputValue} 
           />
+          <IconButton onClick={addQuestion} aria-label='Send question' icon={<EmailIcon />} ml='2' />
         </PopoverFooter>
       </PopoverContent>
     </Popover>
