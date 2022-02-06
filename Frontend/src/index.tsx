@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
+import 'focus-visible/dist/focus-visible'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 
