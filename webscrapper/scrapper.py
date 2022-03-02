@@ -10,7 +10,7 @@ import mysql.connector
 # * create scrappper for getting all past games
 # * write python code to create and populate tables in database
 
-
+#testing commit.
 db = mysql.connector.connect( #connect to my database (you need to recreate a similar database on your computer))
     host='localhost',
     user='root',
