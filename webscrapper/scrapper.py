@@ -6,12 +6,9 @@ import calendar
 import mysql.connector
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
+#import packages above so they can be used with python interpeter
 
-#beautiful soup and requests python libraries required
-
-#to do list:
-# * create scrappper for getting all past games
-# * write python code to create and populate tables in database
+#create database with my_sql called db, with user root and password pegasus
 db = mysql.connector.connect( #connect to my database (you need to recreate a similar database on your computer))
     host='localhost',
     user='root',
@@ -20,12 +17,16 @@ db = mysql.connector.connect( #connect to my database (you need to recreate a si
     database='db'
 )
 cursor= db.cursor()
-#cursor.execute("CREATE TABLE athletes (atl_id int primary key , name VARCHAR(255), hometown VARCHAR(10000),"
-               #    "gender VARCHAR(100),brithyear VARCHAR(100),games VARCHAR(1000),hostlocation VARCHAR(1000),"
-              # "startdate DATE,enddate DATE, age int,type VARCHAR(100), contingent VARCHAR(100),sport VARCHAR(100),"
-              # "gprofile VARCHAR(1000),team VARCHAR(100),finalpos int)")
-#cursor.execute("CREATE TABLE games(game_id int primary key, gamename VARCHAR(255), gamedate VARCHAR(100),gametype VARCHAR(255),"
-           #    "gameinfo VARCHAR(7000),linktogame VARCHAR(500))")
+cursor.execute("CREATE TABLE athletes (atl_id int primary key , name VARCHAR(255), hometown VARCHAR(10000),"
+                   "gender VARCHAR(100),brithyear VARCHAR(100),games VARCHAR(1000),hostlocation VARCHAR(1000),"
+              "startdate DATE,enddate DATE, age int,type VARCHAR(100), contingent VARCHAR(100),sport VARCHAR(100),"
+               "gprofile VARCHAR(1000),team VARCHAR(100),finalpos int)")
+cursor.execute("CREATE TABLE games(game_id int primary key, gamename VARCHAR(255), gamedate VARCHAR(100),gametype VARCHAR(255),"
+               "gameinfo VARCHAR(7000),linktogame VARCHAR(500))")
+cursor.execute("CREATE TABLE results (team_id int  primary key,province VARCHAR(100),sgamesg INT,"
+              "sgamess INT ,sgamesb INT, wgamesg INT,wgamess INT, wgamesb INT,  total INT)")
+cursor.execute("CREATE TABLE teams (id int primary key, name VARCHAR(255), info VARCHAR(7000))")
+db.commit()
 unaccept = ['','','','â','Â','\x9d','\x80','\x8d','\x8c','\x9d','\x9c','\x99','','©','Ã','¨','']
 def fix(word):
     st = list(word)
@@ -208,12 +209,7 @@ for game in games:
     id+=1
 
 
-#cursor.execute("CREATE TABLE results (team_id int  primary key,province VARCHAR(100),sgamesg INT,"
-            #   "sgamess INT ,sgamesb INT, wgamesg INT,wgamess INT, wgamesb INT,  total INT)")
-#db.commit()
 
-#cursor.execute("CREATE TABLE teams (id int primary key, name VARCHAR(255), info VARCHAR(7000))")
-#db.commit()
 #connect to website with beautiful soup and requests python libraries
 soup2 = BeautifulSoup(requests.get("https://www.canadagames.ca/results").text, 'lxml')
 results = soup2.find_all('div',class_='score-item')
