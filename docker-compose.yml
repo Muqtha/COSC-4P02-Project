@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+  db:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: pegasus
+      MYSQL_DATABASE: db
+    volumes:
+      - ./Database/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - database:/var/lib/mysql
+
+  scraper:
+    depends_on:
+      - db
+    image: scraper:latest
+    profiles:
+      - scraper
+
+  frontend:
+    depends_on:
+      - db
+    image: frontend:latest
+    ports:
+      - 3000:3000
+  
+volumes:
+  database:

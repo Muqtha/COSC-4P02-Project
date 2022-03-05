@@ -10,24 +10,27 @@ from selenium.common.exceptions import NoSuchElementException
 
 #create database with my_sql called db, with user root and password pegasus
 db = mysql.connector.connect( #connect to my database (you need to recreate a similar database on your computer))
-    host='localhost',
+    host='172.17.0.2',
     user='root',
     password = 'pegasus',
     port='3306',
     database='db'
 )
+
 cursor= db.cursor()
-cursor.execute("CREATE TABLE athletes (atl_id int primary key , name VARCHAR(255), hometown VARCHAR(10000),"
-                   "gender VARCHAR(100),brithyear VARCHAR(100),games VARCHAR(1000),hostlocation VARCHAR(1000),"
-              "startdate DATE,enddate DATE, age int,type VARCHAR(100), contingent VARCHAR(100),sport VARCHAR(100),"
-               "gprofile VARCHAR(1000),team VARCHAR(100),finalpos int)")
-cursor.execute("CREATE TABLE games(game_id int primary key, gamename VARCHAR(255), gamedate VARCHAR(100),gametype VARCHAR(255),"
-               "gameinfo VARCHAR(7000),linktogame VARCHAR(500))")
-cursor.execute("CREATE TABLE results (team_id int  primary key,province VARCHAR(100),sgamesg INT,"
-              "sgamess INT ,sgamesb INT, wgamesg INT,wgamess INT, wgamesb INT,  total INT)")
-cursor.execute("CREATE TABLE teams (id int primary key, name VARCHAR(255), info VARCHAR(7000))")
-db.commit()
+#cursor.execute("CREATE TABLE athletes (atl_id int primary key , name VARCHAR(255), hometown VARCHAR(10000),"
+#                   "gender VARCHAR(100),brithyear VARCHAR(100),games VARCHAR(1000),hostlocation VARCHAR(1000),"
+#              "startdate DATE,enddate DATE, age int,type VARCHAR(100), contingent VARCHAR(100),sport VARCHAR(100),"
+#               "gprofile VARCHAR(1000),team VARCHAR(100),finalpos int)")
+#cursor.execute("CREATE TABLE games(game_id int primary key, gamename VARCHAR(255), gamedate VARCHAR(100),gametype VARCHAR(255),"
+#               "gameinfo VARCHAR(7000),linktogame VARCHAR(500))")
+#cursor.execute("CREATE TABLE results (team_id int  primary key,province VARCHAR(100),sgamesg INT,"
+#              "sgamess INT ,sgamesb INT, wgamesg INT,wgamess INT, wgamesb INT,  total INT)")
+#cursor.execute("CREATE TABLE teams (id int primary key, name VARCHAR(255), info VARCHAR(7000))")
+#db.commit()
+
 unaccept = ['','','','â','Â','\x9d','\x80','\x8d','\x8c','\x9d','\x9c','\x99','','©','Ã','¨','']
+
 def fix(word):
     st = list(word)
     if( len(st) <=1):
@@ -39,7 +42,7 @@ def fix(word):
                word2+='`'
             if(i==''):
                 word2+='–'
-            if(i=='©')or (i=='¨'):
+            if(i=='©') or (i=='¨'):
                 word2+='é'
             if(i==''):
                 word2+='É'
@@ -47,6 +50,8 @@ def fix(word):
            word2+=i
 
     return word2
+
+
 def searchdate(word,year):
     res = word.split(" ")
     months = calendar.month_name
@@ -60,6 +65,8 @@ def searchdate(word,year):
         if (r in months or r in altmonths):
             m = r
             c=1
+
+
 def travers(elem,input):
     i=0
     resl=""
@@ -76,6 +83,8 @@ def travers(elem,input):
             resl+=", "
         i+=1
     return resl
+
+
 def order(atl):
     orde = ["games","hostlocation","startdate","enddate","contingent","sport","gprofile","team","finalpos"]
     correct = []
@@ -85,6 +94,8 @@ def order(atl):
             if(text[0]==a):
                 correct.append(b)
     return correct
+
+
 def addathlete(atl,atl2,id):
     name=fix(atl[0].text)
     if(len(atl[1])>0):
@@ -121,6 +132,7 @@ def addathlete(atl,atl2,id):
                gprofile,team,finalpos)
         cursor.execute(sql,val) #code to execute sql statements
         db.commit()
+
 
 def atl():
     atoz = []
@@ -170,9 +182,11 @@ def atl():
         x=i
         i=chr(ord(x)+1)
 
+
 soup = BeautifulSoup(requests.get("https://www.canadagames.ca/games").text,'lxml')
 games = soup.find_all('div',class_="past-card w-dyn-item")
 id = 0
+
 for game in games:
     name=fix(game.find('h6').text)
     type = game.find('div',class_="meta is-red").text
