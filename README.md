@@ -60,6 +60,11 @@ Docker Compose does not run the scraping script automatically. This is to avoid 
 docker compose up scraper -d
 ```
 
+To remove the scraper container:
+```
+docker container rm cosc-4p02-project-scraper-1
+```
+
 To use the terminal in mysql run:
 ```
 docker exec -it cosc-4p02-project-db-1 bash
