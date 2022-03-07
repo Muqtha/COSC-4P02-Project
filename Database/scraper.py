@@ -10,7 +10,7 @@ from selenium.common.exceptions import NoSuchElementException
 
 #create database with my_sql called db, with user root and password pegasus
 db = mysql.connector.connect( #connect to my database (you need to recreate a similar database on your computer))
-    host='172.17.0.2',
+    host='db',
     user='root',
     password = 'pegasus',
     port='3306',
