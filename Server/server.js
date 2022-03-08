@@ -20,8 +20,6 @@ const db = mysql.createConnection({
 // })
 
 app.get("/answers", (req,res) => {
-    req.
-    console.log(tablename);
     db.query("SHOW FULL TABLES", 
     (err,result) => {
         if(err){
