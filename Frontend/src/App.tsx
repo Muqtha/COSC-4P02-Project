@@ -4,6 +4,8 @@ import { DeleteIcon } from '@chakra-ui/icons'
 import Chatbot from './Chatbot'
 import { Result, Answer } from './TFWorker'
 import { AutoResizeTextarea } from './AutoResizeTextArea'
+import axios from 'axios'
+import { useTransform } from 'framer-motion'
 
 export type Message = {
   type: 'question' | 'response'
@@ -39,6 +41,20 @@ const App = () => {
   const [edittingIndex, setEdittingIndex] = React.useState<number | undefined>()
   const [edittingText, setEdittingText] = React.useState('')
   const { isOpen, onOpen, onClose } = useDisclosure()
+
+  // const [categoriesList, setCategoriesList] = React.useState([]); // Stores the categories(Table Names) received from the backend.
+
+  /* This method displays the info in the console and sets the response gotten from the backends result to the CategoriesList. */
+  const displayInfo = () => {
+    axios.get("http://localhost:3001/answers").then((response)=>{
+      const temp =[];
+      for(let i=0;i<response.data.length;i++){
+        const temp1=String(JSON.stringify(response.data[i]));
+        temp[i]=temp1.substring(15,temp1.length-2);
+      }
+      setCategories(temp);
+    });
+  }
   
   worker.onmessage = ({ data: { type, value } }) => {
     switch (type) {
@@ -115,7 +131,7 @@ const App = () => {
     <ChakraProvider>
       <Box p='10'>
         <Box mb='10'>
-          <Heading p='1' size='lg'>Categories</Heading>
+          <Heading onLoad={displayInfo} p='1' size='lg'>Categories</Heading>
           <Flex p='1'>
             <Input ml='2' maxW='250' value={newCategory} onChange={handleNewCategoryInputChange} placeholder='New Category' />
             <Button ml='2' aria-label='Add category' onClick={addCategory}>Add Category</Button>
