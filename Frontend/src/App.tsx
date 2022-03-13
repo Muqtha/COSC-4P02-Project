@@ -1,183 +1,249 @@
 import React from 'react'
-import { Box, Button, ChakraProvider, Flex, Heading, IconButton, Input, ListItem, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, OrderedList, Skeleton, UnorderedList, useDisclosure } from '@chakra-ui/react'
+import { Box, Button, ChakraProvider, Flex, Heading, IconButton, Input, ListItem, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, OrderedList, UnorderedList, useDisclosure } from '@chakra-ui/react'
 import { DeleteIcon } from '@chakra-ui/icons'
 import Chatbot from './Chatbot'
-import { Result, Answer } from './TFWorker'
 import { AutoResizeTextarea } from './AutoResizeTextArea'
-import axios from 'axios'
-import { useTransform } from 'framer-motion'
 
 export type Message = {
   type: 'question' | 'response'
   message: string
 }
 
-export type ContextType = {
-  [key:string]: string
+type Answer = {
+  text: string;
+  startIndex: number;
+  endIndex: number;
+  score: number;
 }
 
-const defaultCategories = [
-  'Canada Games',
-  'Parking',
+type CategoryResult = {
+  category: Category,
+  score: number
+}
+
+type QueryResponse = {
+  categoryResults: CategoryResult[]
+  subCategoryResults?: CategoryResult[]
+  answers: Answer[]
+}
+
+type Category = {
+  name: string
+  context: string
+  subCategories: Category[]
+}
+
+type ContextEdit = {
+  index: number
+  subIndex?: number
+  context: string
+}
+
+// const serverAddress = 'http://192.168.0.3:3001'
+const serverAddress = 'http://143.110.217.242:3001'
+
+const defaultCategories: Category[] = [
+  {
+    name: 'Canada Games',
+    context: 'The Canada Games is a multi-sport event held every two years, alternating between the Canada Winter Games and the Canada Summer Games. They represent the highest level of national competition for Canadian athletes.\n\nThe (Canada) games are from August 6th to 21st, 2022.\n\nThe Canada Games events include basketball, soccer, baseball, and hockey.',
+    subCategories: []
+  },
+  {
+    name: 'Parking',
+    context: 'Parking costs $200.\n\nParking is available at Brock University.',
+    subCategories: []
+  }
 ]
 
-const defaultContext: ContextType = {
-  'Canada Games': 'The Canada Games is a multi-sport event held every two years, alternating between the Canada Winter Games and the Canada Summer Games. They represent the highest level of national competition for Canadian athletes.\n\nThe (Canada) games are from August 6th to 21st, 2022.\n\nThe Canada Games events include basketball, soccer, baseball, and hockey.',
-  'Parking': 'Parking costs $200.\n\nParking is available at Brock University.',
-}
-
-const worker = new Worker(new URL('./TFWorker.ts', import.meta.url))
-
 const App = () => {
-  const [categoryModelReady, setCategoryModelReady] = React.useState(false)
-  const [contextModelReady, setContextModelReady] = React.useState(false)
-  const [categories, setCategories] = React.useState<string[]>(defaultCategories)
-  const [context, setContext] = React.useState<ContextType>(defaultContext)
+  const [categories, setCategories] = React.useState<Category[]>(defaultCategories)
   const [newCategory, setNewCategory] = React.useState('')
-  const [categoryResults, setCategoryResults] = React.useState<Result[]>()
-  const [queryResults, setQueryResults] = React.useState<Answer[]>()
+  const [newSubCategories, setNewSubCategories] = React.useState<string[]>([])
+  const [queryResults, setQueryResults] = React.useState<QueryResponse>()
   const [waitingForResponse, setWaitingForResponse] = React.useState(false)
   const [chatLog, setChatLog] = React.useState<Message[]>([{ type: 'response', message: 'How can we help you today?'}])
-  const [edittingIndex, setEdittingIndex] = React.useState<number | undefined>()
-  const [edittingText, setEdittingText] = React.useState('')
+  const [edittingCategory, setEdittingCategory] = React.useState<ContextEdit | undefined>()
   const { isOpen, onOpen, onClose } = useDisclosure()
-
-  // const [categoriesList, setCategoriesList] = React.useState([]); // Stores the categories(Table Names) received from the backend.
-
-  /* This method displays the info in the console and sets the response gotten from the backends result to the CategoriesList. */
-  const displayInfo = () => {
-    axios.get("http://localhost:3001/answers").then((response)=>{
-      const temp =[];
-      for(let i=0;i<response.data.length;i++){
-        const temp1=String(JSON.stringify(response.data[i]));
-        temp[i]=temp1.substring(15,temp1.length-2);
-      }
-      setCategories(temp);
-    });
-  }
-  
-  worker.onmessage = ({ data: { type, value } }) => {
-    switch (type) {
-      case 'categoryModelLoaded':
-        setCategoryModelReady(true)
-        break
-      case 'contextModelLoaded':
-        setContextModelReady(true)
-        break
-      case 'querying':
-        setWaitingForResponse(true)
-        setCategoryResults(undefined)
-        setQueryResults(undefined)
-        break
-      case 'categoryResult':
-        setCategoryResults(value)
-        break
-      case 'queryResult':
-        setQueryResults(value)
-        break
-      case 'finalAnswer':
-        setChatLog(oldChatLog => oldChatLog.concat([{ type: 'response', message: value }]))
-        setWaitingForResponse(false)
-        break
-    }
-  }
-  React.useEffect(() => {
-    worker.postMessage({ cmd: 'loadModels' })
-  }, [])
 
   const handleNewCategoryInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNewCategory(event.target.value)
   }
 
+  const handleNewSubCategoryInputChange = (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
+    const subCategories = [...newSubCategories]
+    subCategories[index] = event.target.value
+    setNewSubCategories(subCategories)
+  }
+
   const handleContextInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setEdittingText(event.target.value)
+    if (edittingCategory) {
+      const newEdittingCategory: ContextEdit = { ...edittingCategory, context: event.target.value }
+      setEdittingCategory(newEdittingCategory)
+    }
   }
 
   const addCategory = () => {
     if (newCategory) {
-      setCategories(categories => categories.concat(newCategory))
+      setCategories(categories => categories.concat({ name: newCategory, context: '', subCategories: [] }))
       setNewCategory('')
     }
   }
+  
+  const addSubCategory = (index: number) => {
+    const newCategories = [...categories]
 
-  const openEdittingContextModal = (index: number) => {
-    setEdittingIndex(index)
-    setEdittingText(context[categories[index]])
+    newCategories[index].subCategories.push({ name: newSubCategories[index], context: '', subCategories: [] })
+    setCategories(newCategories)
+    
+    const subCategories = [...newSubCategories]
+
+    subCategories[index] = ''
+    setNewSubCategories(subCategories)
+  }
+
+  const openEdittingContextModal = (index: number, subIndex?: number) => {
+    if (subIndex !== undefined) {
+      setEdittingCategory({
+        index,
+        subIndex,
+        context: categories[index].subCategories[subIndex].context
+      })
+    } else {
+      setEdittingCategory({
+        index,
+        context: categories[index].context
+      })
+    }
     onOpen()
   }
 
   const assignContext = () => {
-    if (edittingIndex === undefined) return
-    setContext(context => {
-      let newContext = {...context}
-      let categoryName = categories[edittingIndex]
+    if (!edittingCategory) return
+    if (edittingCategory.subIndex !== undefined) {
+      const subIndex = edittingCategory.subIndex
 
-      newContext[categoryName] = edittingText
-
-      return newContext
-    })
+      setCategories(categories => {
+        let newCategories = [...categories]
+  
+        newCategories[edittingCategory.index].subCategories[subIndex].context = edittingCategory.context
+  
+        return newCategories
+      })
+    } else {
+      setCategories(categories => {
+        let newCategories = [...categories]
+  
+        newCategories[edittingCategory.index].context = edittingCategory.context
+  
+        return newCategories
+      })
+    }
     onClose()
   }
 
   const removeCategory = (index: number) => {
+    setEdittingCategory(undefined)
     setCategories(categories => categories.filter((_category, i) => index !== i))
   }
 
-  const query = (input: string) => {
-    worker.postMessage({ cmd: 'query', parameters: { input, categories, context }})
+  const removeSubCategory = (index: number, subIndex: number) => {
+    const newSubCategories = categories[index].subCategories.filter((_subCategory, i) => subIndex !== i)
+    const newCategories = [...categories]
+
+    newCategories[index].subCategories = newSubCategories
+    setEdittingCategory(undefined)
+    setCategories(newCategories)
+  }
+
+  const query = async (input: string) => {
+    setWaitingForResponse(true)
+    setQueryResults(undefined)
+    try {
+      const response = await fetch(`${serverAddress}/query`, {
+        method: 'post',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ input, categories })
+      })
+      const data = await response.json()
+      setQueryResults(data)
+      setChatLog(oldChatLog => oldChatLog.concat([{ type: 'response', message: data.answers[0].text }]))
+      setWaitingForResponse(false)
+    } catch (err) {
+      console.warn(err)
+      setChatLog(oldChatLog => oldChatLog.concat([{ type: 'response', message: 'An error occured' }]))
+      setWaitingForResponse(false)
+    }
   }
 
   return (
     <ChakraProvider>
       <Box p='10'>
         <Box mb='10'>
-          <Heading onLoad={displayInfo} p='1' size='lg'>Categories</Heading>
+          <Heading p='1' size='lg'>Categories</Heading>
           <Flex p='1'>
             <Input ml='2' maxW='250' value={newCategory} onChange={handleNewCategoryInputChange} placeholder='New Category' />
             <Button ml='2' aria-label='Add category' onClick={addCategory}>Add Category</Button>
           </Flex>
           <UnorderedList>
             {categories.map((category, index) => (
-              <Flex key={index} p='1' alignItems='center'>
-                <ListItem pr='5'>{category}</ListItem>
-                <Button mr='1' aria-label='Assign context' onClick={() => openEdittingContextModal(index)}>Context</Button>
-                {categories.length > 1 && <IconButton aria-label='Delete category' icon={<DeleteIcon />} onClick={() => removeCategory(index)} />}
-              </Flex>
+              <div key={index}>
+                <Flex p='1' alignItems='center'>
+                  <ListItem pr='5'>{category.name}</ListItem>
+                  {category.subCategories.length === 0 && <Button mr='1' aria-label='Assign context' onClick={() => openEdittingContextModal(index)}>Context</Button>}
+                  <Input mx='1' maxW='250' value={newSubCategories[index] || ''} onChange={(e) => handleNewSubCategoryInputChange(e, index)} placeholder='New Sub Category' />
+                  <Button mr='1' aria-label='Add Sub Category' onClick={() => addSubCategory(index)}>Add Sub Category</Button>
+                  <IconButton aria-label='Delete category' icon={<DeleteIcon />} onClick={() => removeCategory(index)} />
+                </Flex>
+                {category.subCategories.map((subCategory, subCategoryIndex) => (
+                  <Flex key={subCategoryIndex} p='1' ml='5' alignItems='center'>
+                    <ListItem as='p' pr='5'>{subCategory.name}</ListItem>
+                    <Button mr='1' aria-label='Assign context' onClick={() => openEdittingContextModal(index, subCategoryIndex)}>Context</Button>
+                    <IconButton aria-label='Delete sub category' icon={<DeleteIcon />} onClick={() => removeSubCategory(index, subCategoryIndex)} />
+                  </Flex>
+                ))}
+              </div>
             ))}
           </UnorderedList>
         </Box>
-        <div>
-          {categoryResults && <Heading size='md' mb='2'>Category Predictions</Heading>}
-          <OrderedList>
-            {categoryResults?.map((result, index) => (
-              <ListItem key={index}>{`${result.category}: ${result.score}`}</ListItem>
-            ))}
-          </OrderedList>
-          {queryResults && <Heading size='md' mt='4' mb='2'>Answers from {categoryResults && categoryResults[0].category} context</Heading>}
-          {queryResults?.length === 0 && <Heading size='sm' pl='5'>No answers found</Heading>}
-          <OrderedList>
-            {queryResults?.map((answer, index) => (
-              <ListItem key={index}>{`${answer.text}: ${Math.round(answer.score * 100) / 100}`}</ListItem>
-            ))}
-          </OrderedList>
-        </div>
+        {queryResults && 
+          <div>
+            <Heading size='md' mb='2'>Category Predictions</Heading>
+            <OrderedList>
+              {queryResults.categoryResults.map((result, index) => (
+                <ListItem key={index}>{`${result.category.name}: ${result.score}`}</ListItem>
+              ))}
+            </OrderedList>
+            {queryResults.subCategoryResults &&
+              <Box ml='5'>
+                <Heading size='md' mb='2'>Sub Category Predictions</Heading>
+                <OrderedList>
+                  {queryResults.subCategoryResults.map((result, index) => (
+                    <ListItem key={index}>{`${result.category.name}: ${result.score}`}</ListItem>
+                  ))}
+                </OrderedList>
+              </Box>
+            }
+            <Heading size='md' mt='4' mb='2'>Answers from {queryResults.categoryResults[0].category.name} {queryResults.subCategoryResults && `/ ${queryResults.subCategoryResults[0].category.name}`} context</Heading>
+            {queryResults.answers.length === 0 && <Heading size='sm' pl='5'>No answers found</Heading>}
+            <OrderedList>
+              {queryResults.answers.map((answer, index) => (
+                <ListItem key={index}>{answer.score ? `${answer.text}: ${Math.round(answer.score * 100) / 100}` : answer.text}</ListItem>
+              ))}
+            </OrderedList>
+          </div>
+        }
       </Box>
-      {(!categoryModelReady || !contextModelReady) &&
-        <Box textAlign='right' pos='fixed' bottom='40px' right='2%'>
-          <Heading size='lg'>{`Category Model status: ${categoryModelReady ? 'Ready' : 'Loading'}`}</Heading>
-          <Heading size='lg'>{`Context Model status: ${contextModelReady ? 'Ready' : 'Loading'}`}</Heading>
-        </Box>
-      }
-      <Skeleton isLoaded={categoryModelReady && contextModelReady}>
-        <Chatbot chatLog={chatLog} setChatLog={setChatLog} query={query} waitingForResponse={waitingForResponse} />
-      </Skeleton>
+      <Chatbot chatLog={chatLog} setChatLog={setChatLog} query={query} waitingForResponse={waitingForResponse} />
       <Modal size='xl' scrollBehavior='inside' isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>{`${edittingIndex !== undefined && categories[edittingIndex]} context`}</ModalHeader>
+          <ModalHeader>{`${edittingCategory !== undefined && (edittingCategory.subIndex !== undefined ? categories[edittingCategory.index].subCategories[edittingCategory.subIndex].name : categories[edittingCategory.index].name)} context`}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <AutoResizeTextarea value={edittingText} onChange={handleContextInputChange} placeholder='Context'/>
+            <AutoResizeTextarea value={edittingCategory ? edittingCategory.context : ''} onChange={handleContextInputChange} placeholder='Context'/>
           </ModalBody>
           <ModalFooter>
             <Button colorScheme='blue' mr={3} onClick={assignContext}>Set context</Button>

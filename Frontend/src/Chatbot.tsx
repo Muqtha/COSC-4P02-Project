@@ -49,9 +49,13 @@ const Chatbot = ({ chatLog, setChatLog, query, waitingForResponse }: ChatbotProp
     setInputValue(event.target.value)
   }
 
-  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
       addQuestion();
+    }
+    if (event.key === 'ArrowUp' && event.altKey) {
+      const userMessages = chatLog.filter(message => message.type === 'question')
+      setInputValue(userMessages[userMessages.length - 1].message)
     }
   }
 
@@ -124,7 +128,7 @@ const Chatbot = ({ chatLog, setChatLog, query, waitingForResponse }: ChatbotProp
             ref={initialFocusRef}
             variant='filled'
             placeholder='Type your questions here'
-            onKeyPress={handleKeyPress} 
+            onKeyDown={handleKeyDown}
             onChange={handleInputChange} 
             value={inputValue} 
           />
