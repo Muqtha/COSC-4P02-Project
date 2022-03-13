@@ -39,8 +39,8 @@ type ContextEdit = {
   context: string
 }
 
-// const serverAddress = 'http://192.168.0.3:3001'
-const serverAddress = 'http://143.110.217.242:3001'
+const serverAddress = 'https://fiveguys.chat'
+// const serverAddress = 'http://localhost:3001'
 
 const defaultCategories: Category[] = [
   {
@@ -167,7 +167,11 @@ const App = () => {
         },
         body: JSON.stringify({ input, categories })
       })
+
+      if (response.status !== 200) throw new Error('Error in server response')
+
       const data = await response.json()
+
       setQueryResults(data)
       setChatLog(oldChatLog => oldChatLog.concat([{ type: 'response', message: data.answers[0].text }]))
       setWaitingForResponse(false)
