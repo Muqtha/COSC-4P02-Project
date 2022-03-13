@@ -79,15 +79,15 @@ app.use(express.json());
 
 app.post('/query', async (req: Request<{}, {}, QueryParameters>, res) => {
   if (!req.body) {
-    res.json('Missing query parameters.')
+    res.status(400).json('Missing query parameters.')
     return
   }
-  if (!req.body.categories) {
-    res.json('Missing Categories')
+  if (!req.body.categories || req.body.categories.length === 0) {
+    res.status(400).json('Missing Categories')
     return
   }
   if (!req.body.input) {
-    res.json('Missing Input')
+    res.status(400).json('Missing Input')
     return
   }
   
