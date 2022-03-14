@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Button, ChakraProvider, Flex, Heading, IconButton, Input, ListItem, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, OrderedList, UnorderedList, useDisclosure } from '@chakra-ui/react'
+import { Box, Button, ChakraProvider, Checkbox, Flex, Heading, IconButton, Input, ListItem, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, OrderedList, UnorderedList, useDisclosure } from '@chakra-ui/react'
 import { DeleteIcon } from '@chakra-ui/icons'
 import Chatbot from './Chatbot'
 import { AutoResizeTextarea } from './AutoResizeTextArea'
@@ -10,10 +10,10 @@ export type Message = {
 }
 
 type Answer = {
-  text: string;
-  startIndex: number;
-  endIndex: number;
-  score: number;
+  text: string
+  startIndex: number
+  endIndex: number
+  score: number
 }
 
 type CategoryResult = {
@@ -29,6 +29,7 @@ type QueryResponse = {
 
 type Category = {
   name: string
+  findAnswer: boolean
   context: string
   subCategories: Category[]
 }
@@ -36,6 +37,7 @@ type Category = {
 type ContextEdit = {
   index: number
   subIndex?: number
+  findAnswer: boolean
   context: string
 }
 
@@ -45,11 +47,13 @@ const serverAddress = 'https://fiveguys.chat'
 const defaultCategories: Category[] = [
   {
     name: 'Canada Games',
+    findAnswer: true,
     context: 'The Canada Games is a multi-sport event held every two years, alternating between the Canada Winter Games and the Canada Summer Games. They represent the highest level of national competition for Canadian athletes.\n\nThe (Canada) games are from August 6th to 21st, 2022.\n\nThe Canada Games events include basketball, soccer, baseball, and hockey.',
     subCategories: []
   },
   {
     name: 'Parking',
+    findAnswer: true,
     context: 'Parking costs $200.\n\nParking is available at Brock University.',
     subCategories: []
   }
@@ -107,6 +111,13 @@ const App = () => {
     setNewSubCategories(subCategories)
   }
 
+  const handleContextAnswerChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (edittingCategory) {
+      const newEdittingCategory: ContextEdit = { ...edittingCategory, findAnswer: event.target.checked }
+      setEdittingCategory(newEdittingCategory)
+    }
+  }
+
   const handleContextInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (edittingCategory) {
       const newEdittingCategory: ContextEdit = { ...edittingCategory, context: event.target.value }
@@ -116,7 +127,7 @@ const App = () => {
 
   const addCategory = () => {
     if (newCategory) {
-      setCategories(categories => categories.concat({ name: newCategory, context: '', subCategories: [] }))
+      setCategories(categories => categories.concat({ name: newCategory, findAnswer: false, context: '', subCategories: [] }))
       setNewCategory('')
     }
   }
@@ -124,7 +135,7 @@ const App = () => {
   const addSubCategory = (index: number) => {
     const newCategories = [...categories]
 
-    newCategories[index].subCategories.push({ name: newSubCategories[index], context: '', subCategories: [] })
+    newCategories[index].subCategories.push({ name: newSubCategories[index], findAnswer: false, context: '', subCategories: [] })
     setCategories(newCategories)
     
     const subCategories = [...newSubCategories]
@@ -138,11 +149,13 @@ const App = () => {
       setEdittingCategory({
         index,
         subIndex,
+        findAnswer: categories[index].subCategories[subIndex].findAnswer,
         context: categories[index].subCategories[subIndex].context
       })
     } else {
       setEdittingCategory({
         index,
+        findAnswer: categories[index].findAnswer,
         context: categories[index].context
       })
     }
@@ -156,7 +169,8 @@ const App = () => {
 
       setCategories(categories => {
         let newCategories = [...categories]
-  
+
+        newCategories[edittingCategory.index].subCategories[subIndex].findAnswer = edittingCategory.findAnswer
         newCategories[edittingCategory.index].subCategories[subIndex].context = edittingCategory.context
   
         return newCategories
@@ -165,6 +179,7 @@ const App = () => {
       setCategories(categories => {
         let newCategories = [...categories]
   
+        newCategories[edittingCategory.index].findAnswer = edittingCategory.findAnswer
         newCategories[edittingCategory.index].context = edittingCategory.context
   
         return newCategories
@@ -242,6 +257,10 @@ const App = () => {
           throw new Error('Input file format incorrect. Each element should have a name property.')
         }
     
+        // if (importedCategories[i].findAnswer === undefined) {
+        //   throw new Error('Input file format incorrect. Each element should have a findAnswer property that must be true or false.')
+        // }
+
         if (importedCategories[i].context === undefined) {
           throw new Error('Input file format incorrect. Each element should have a context property, even if it is blank.')
         }
@@ -254,6 +273,10 @@ const App = () => {
           if (importedCategories[i].subCategories[j].name === undefined) {
             throw new Error('Input file format incorrect. Each subCategory array element should have a name property.')
           }
+
+          // if (importedCategories[i].subCategories[j].findAnswer === undefined) {
+          //   throw new Error('Input file format incorrect. Each subCategory array element should have a findAnswer property that must be true or false.')
+          // }
       
           if (importedCategories[i].subCategories[j].context === undefined) {
             throw new Error('Input file format incorrect. Each subCategory array element should have a context property, even if it is blank.')
@@ -349,6 +372,8 @@ const App = () => {
           <ModalHeader>{`${edittingCategory !== undefined && (edittingCategory.subIndex !== undefined ? categories[edittingCategory.index].subCategories[edittingCategory.subIndex].name : categories[edittingCategory.index].name)} context`}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
+            <Heading size='xs'>If unchecked, the entire context will be the answer for this category</Heading>
+            <Checkbox mb='2' isChecked={edittingCategory ? edittingCategory.findAnswer : false} onChange={handleContextAnswerChange}>Use model to search for answer in context</Checkbox>
             <AutoResizeTextarea value={edittingCategory ? edittingCategory.context : ''} onChange={handleContextInputChange} placeholder='Context'/>
           </ModalBody>
           <ModalFooter>
