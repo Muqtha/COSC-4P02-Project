@@ -55,6 +55,22 @@ const defaultCategories: Category[] = [
   }
 ]
 
+const fileToJSON = async (file: File) => {
+  return new Promise((resolve, reject) => {
+    const fileReader = new FileReader()
+    fileReader.onload = event => {
+      const result = event.target?.result
+      if (result) {
+        resolve(JSON.parse(result.toString()))
+      } else {
+        reject('Result unknown')
+      }
+    }
+    fileReader.onerror = error => reject(error)
+    fileReader.readAsText(file)
+  })
+}
+
 const App = () => {
   const [categories, setCategories] = React.useState<Category[]>(defaultCategories)
   const [newCategory, setNewCategory] = React.useState('')
@@ -64,6 +80,22 @@ const App = () => {
   const [chatLog, setChatLog] = React.useState<Message[]>([{ type: 'response', message: 'How can we help you today?'}])
   const [edittingCategory, setEdittingCategory] = React.useState<ContextEdit | undefined>()
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const categoryImportRef = React.useRef<HTMLInputElement>(null)
+  const categoryAppendImportRef = React.useRef<HTMLInputElement>(null)
+
+  // when this component loads, check to see if localStorage contains categories and if so, use them
+  React.useEffect(() => {
+    const categoriesStorageValue = localStorage.getItem('categories')
+    
+    if (categoriesStorageValue) {
+      setCategories(JSON.parse(categoriesStorageValue))
+    }
+  }, [])
+
+  // everytime categories changes, save state to localStorage
+  React.useEffect(() => {
+    localStorage.setItem('categories', JSON.stringify(categories))
+  }, [categories])
 
   const handleNewCategoryInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNewCategory(event.target.value)
@@ -182,10 +214,80 @@ const App = () => {
     }
   }
 
+  const exportCategories = () => {
+    const a = document.createElement('a')
+    // a.href = URL.createObjectURL(new Blob([JSON.stringify(categories, null, 2)], { type: 'text/plain' }))
+    // a.setAttribute('download', 'categories.txt')
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(categories, null, 2)], { type: 'application/json' }))
+    a.setAttribute('download', 'categories.json')
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+  }
+
+  const importCategories = async (event: React.ChangeEvent<HTMLInputElement>, append: boolean) => {
+    const files = event.target.files
+
+    if (!files) return
+    
+    try {
+      const importedCategories = await fileToJSON(files[0])
+  
+      if (!Array.isArray(importedCategories)) {
+        throw new Error('Input file format incorrect. The input should be an array.')
+      }
+  
+      for (let i = 0; i < importedCategories.length; i++) {
+        if (importedCategories[i].name === undefined) {
+          throw new Error('Input file format incorrect. Each element should have a name property.')
+        }
+    
+        if (importedCategories[i].context === undefined) {
+          throw new Error('Input file format incorrect. Each element should have a context property, even if it is blank.')
+        }
+    
+        if (importedCategories[i].subCategories === undefined || !Array.isArray(importedCategories[i].subCategories)) {
+          throw new Error('Input file format incorrect. Each element should have a subCategories property that contains an array (use an empty array if it has none).')
+        }
+
+        for (let j = 0; j < importedCategories[i].subCategories.length; j++) {
+          if (importedCategories[i].subCategories[j].name === undefined) {
+            throw new Error('Input file format incorrect. Each subCategory array element should have a name property.')
+          }
+      
+          if (importedCategories[i].subCategories[j].context === undefined) {
+            throw new Error('Input file format incorrect. Each subCategory array element should have a context property, even if it is blank.')
+          }
+      
+          if (importedCategories[i].subCategories[j].subCategories === undefined || !Array.isArray(importedCategories[i].subCategories[j].subCategories)) {
+            throw new Error('Input file format incorrect. Each subCategory array element should have a subCategories property that contains an array (use an empty array if it has none).')
+          }
+        }
+      }
+
+      if (append) {
+        setCategories(categories => categories.concat(importedCategories))
+      } else {
+        setCategories(importedCategories)
+      }
+
+    } catch (err) { 
+      console.warn(err)
+      alert(err)
+    } finally {
+      event.target.value = ''
+    }
+  }
+
   return (
     <ChakraProvider>
       <Box p='10'>
         <Box mb='10'>
+          <Button ml='2' aria-label='Export' onClick={exportCategories}>Export</Button>
+          <Button ml='2' aria-label='Import (Replace)' onClick={() => categoryImportRef.current?.click()}>Import (Replace)</Button>
+          <Button ml='2' aria-label='Import (Append)' onClick={() => categoryAppendImportRef.current?.click()}>Import (Append)</Button>
+          <input type='file' accept='.json, .txt' style={{ display: 'none' }} ref={categoryImportRef} onChange={(e) => importCategories(e, false)} />
+          <input type='file' accept='.json, .txt' style={{ display: 'none' }} ref={categoryAppendImportRef} onChange={(e) => importCategories(e, true)} />
           <Heading p='1' size='lg'>Categories</Heading>
           <Flex p='1'>
             <Input ml='2' maxW='250' value={newCategory} onChange={handleNewCategoryInputChange} placeholder='New Category' />
