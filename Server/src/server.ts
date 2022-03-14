@@ -123,7 +123,7 @@ app.post('/query', async (req: Request<{}, {}, QueryParameters>, res) => {
     }
     const subEmbeddings = categoryModel.embed(subCategoryQueryParameters)
     const subScores = await tf.matMul(subEmbeddings['queryEmbedding'], subEmbeddings['responseEmbedding'],false,true).data()
-    subSortedResults = Array.from(subScores).map((score,index) => ({category: subCategories[index], score: Math.round(score *100) / 100})).sort((a,b) => b.score - a.score)
+    subSortedResults = Array.from(subScores).map((score,index) => ({ category: subCategories[index], score: Math.round(score * 100) / 100 })).sort((a, b) => b.score - a.score)
 
     categoryContext = subCategories[0].context
   }
@@ -140,7 +140,7 @@ app.post('/query', async (req: Request<{}, {}, QueryParameters>, res) => {
       res.json({ categoryResults: sortedResults.slice(0,5), subCategoryResults: subSortedResults, answers: [{ text: 'Unfortunately we don\'t have an answer for that question' }] })
     }
   } else {
-    res.json({ categoryResults: sortedResults.slice(0,5), subCategoryResults: subSortedResults, answers: [{ text: `Sorry, we have no information about ${sortedResults[0].category} currently` }] })
+    res.json({ categoryResults: sortedResults.slice(0,5), subCategoryResults: subSortedResults, answers: [{ text: `Sorry, we do not have enough information about ${sortedResults[0].category.name} currently` }] })
   }
 
 })
