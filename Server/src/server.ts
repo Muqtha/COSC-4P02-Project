@@ -13,6 +13,7 @@ type QueryParameters = {
 
 type Category = {
   name: string
+  findAnswer: boolean
   context: string
   subCategories: Category[]
 }
@@ -114,6 +115,7 @@ app.post('/query', async (req: Request<{}, {}, QueryParameters>, res) => {
   const subCategories = sortedResults[0].category.subCategories
   let subSortedResults: Result[] | undefined
   let categoryContext: string | undefined
+  let findAnswer: boolean
 
   if (subCategories.length > 0) {
 
@@ -126,18 +128,25 @@ app.post('/query', async (req: Request<{}, {}, QueryParameters>, res) => {
     subSortedResults = Array.from(subScores).map((score,index) => ({ category: subCategories[index], score: Math.round(score * 100) / 100 })).sort((a, b) => b.score - a.score)
 
     categoryContext = subCategories[0].context
+    findAnswer = subCategories[0].findAnswer
   }
   else {
     categoryContext = sortedResults[0].category.context
+    findAnswer = sortedResults[0].category.findAnswer
   }
   
   if (categoryContext) {
-    const answers = await contextModel.findAnswers(input, categoryContext)
-    
-    if (answers.length > 0) {
-      res.json({ categoryResults: sortedResults.slice(0,5), subCategoryResults: subSortedResults, answers })
+    if (findAnswer) {
+      const answers = await contextModel.findAnswers(input, categoryContext)
+      
+      if (answers.length > 0) {
+        res.json({ categoryResults: sortedResults.slice(0,5), subCategoryResults: subSortedResults, answers })
+      } else {
+        res.json({ categoryResults: sortedResults.slice(0,5), subCategoryResults: subSortedResults, answers: [{ text: 'Unfortunately we don\'t have an answer for that question' }] })
+      }
     } else {
-      res.json({ categoryResults: sortedResults.slice(0,5), subCategoryResults: subSortedResults, answers: [{ text: 'Unfortunately we don\'t have an answer for that question' }] })
+      // if findAnswer is false, just return category results and the full context as the answer
+      res.json({ categoryResults: sortedResults.slice(0,5), subCategoryResults: subSortedResults, answers: [{ text: categoryContext, score: 100 }]})
     }
   } else {
     res.json({ categoryResults: sortedResults.slice(0,5), subCategoryResults: subSortedResults, answers: [{ text: `Sorry, we do not have enough information about ${sortedResults[0].category.name} currently` }] })
