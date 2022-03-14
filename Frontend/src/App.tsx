@@ -257,9 +257,9 @@ const App = () => {
           throw new Error('Input file format incorrect. Each element should have a name property.')
         }
     
-        if (importedCategories[i].findAnswer === undefined) {
-          throw new Error('Input file format incorrect. Each element should have a findAnswer property that must be true or false.')
-        }
+        // if (importedCategories[i].findAnswer === undefined) {
+        //   throw new Error('Input file format incorrect. Each element should have a findAnswer property that must be true or false.')
+        // }
 
         if (importedCategories[i].context === undefined) {
           throw new Error('Input file format incorrect. Each element should have a context property, even if it is blank.')
@@ -274,9 +274,9 @@ const App = () => {
             throw new Error('Input file format incorrect. Each subCategory array element should have a name property.')
           }
 
-          if (importedCategories[i].subCategories[j].findAnswer === undefined) {
-            throw new Error('Input file format incorrect. Each subCategory array element should have a findAnswer property that must be true or false.')
-          }
+          // if (importedCategories[i].subCategories[j].findAnswer === undefined) {
+          //   throw new Error('Input file format incorrect. Each subCategory array element should have a findAnswer property that must be true or false.')
+          // }
       
           if (importedCategories[i].subCategories[j].context === undefined) {
             throw new Error('Input file format incorrect. Each subCategory array element should have a context property, even if it is blank.')
