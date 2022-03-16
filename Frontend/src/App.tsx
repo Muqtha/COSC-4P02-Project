@@ -44,6 +44,8 @@ type ContextEdit = {
 const serverAddress = 'https://fiveguys.chat'
 // const serverAddress = 'http://localhost:3001'
 
+const queryTimeout = 15000
+
 const defaultCategories: Category[] = [
   {
     name: 'Canada Games',
@@ -73,6 +75,17 @@ const fileToJSON = async (file: File) => {
     fileReader.onerror = error => reject(error)
     fileReader.readAsText(file)
   })
+}
+
+const fetchTimeout = (url: string, ms: number, { signal, ...options }: RequestInit | undefined = {}) => {
+  const controller = new AbortController()
+  const promise = fetch(url, { signal: controller.signal, ...options })
+
+  if (signal) signal.addEventListener('abort', () => controller.abort())
+
+  const timeout = setTimeout(() => controller.abort(), ms)
+
+  return promise.finally(() => clearTimeout(timeout))
 }
 
 const App = () => {
@@ -205,8 +218,9 @@ const App = () => {
   const query = async (input: string) => {
     setWaitingForResponse(true)
     setQueryResults(undefined)
+   
     try {
-      const response = await fetch(`${serverAddress}/query`, {
+      const response = await fetchTimeout(`${serverAddress}/query`, queryTimeout, {
         method: 'post',
         headers: {
           'Accept': 'application/json',
@@ -221,10 +235,14 @@ const App = () => {
 
       setQueryResults(data)
       setChatLog(oldChatLog => oldChatLog.concat([{ type: 'response', message: data.answers[0].text }]))
-      setWaitingForResponse(false)
-    } catch (err) {
+    } catch (err: any) {
       console.warn(err)
-      setChatLog(oldChatLog => oldChatLog.concat([{ type: 'response', message: 'An error occured' }]))
+      if (err.name === 'AbortError') {
+        setChatLog(oldChatLog => oldChatLog.concat([{ type: 'response', message: 'The server is taking too long to respond right now' }]))
+      } else {
+        setChatLog(oldChatLog => oldChatLog.concat([{ type: 'response', message: 'An error occured' }]))
+      }
+    } finally {
       setWaitingForResponse(false)
     }
   }
