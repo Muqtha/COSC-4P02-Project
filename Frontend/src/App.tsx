@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Button, ChakraProvider, Checkbox, Flex, Heading, IconButton, Input, ListItem, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, OrderedList, UnorderedList, useDisclosure } from '@chakra-ui/react'
+import { Box, Button, ChakraProvider, Checkbox, Flex, FormControl, FormLabel, Heading, IconButton, Input, ListItem, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, OrderedList, Switch, UnorderedList, useDisclosure } from '@chakra-ui/react'
 import { DeleteIcon } from '@chakra-ui/icons'
 import Chatbot from './Chatbot'
 import { AutoResizeTextarea } from './AutoResizeTextArea'
@@ -96,6 +96,8 @@ const App = () => {
   const [waitingForResponse, setWaitingForResponse] = React.useState(false)
   const [chatLog, setChatLog] = React.useState<Message[]>([{ type: 'response', message: 'How can we help you today?'}])
   const [edittingCategory, setEdittingCategory] = React.useState<ContextEdit | undefined>()
+  const [showCategories, setShowCategories] = React.useState(true)
+  const [showPredictions, setShowPredictions] = React.useState(true)
   const { isOpen, onOpen, onClose } = useDisclosure()
   const categoryImportRef = React.useRef<HTMLInputElement>(null)
   const categoryAppendImportRef = React.useRef<HTMLInputElement>(null)
@@ -113,6 +115,14 @@ const App = () => {
   React.useEffect(() => {
     localStorage.setItem('categories', JSON.stringify(categories))
   }, [categories])
+
+  const handleShowCategoriesChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setShowCategories(event.target.checked)
+  }
+
+  const handleShowPredictionsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setShowPredictions(event.target.checked)
+  }
 
   const handleNewCategoryInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNewCategory(event.target.value)
@@ -324,38 +334,54 @@ const App = () => {
     <ChakraProvider>
       <Box p='10'>
         <Box mb='10'>
-          <Button ml='2' aria-label='Export' onClick={exportCategories}>Export</Button>
-          <Button ml='2' aria-label='Import (Replace)' onClick={() => categoryImportRef.current?.click()}>Import (Replace)</Button>
-          <Button ml='2' aria-label='Import (Append)' onClick={() => categoryAppendImportRef.current?.click()}>Import (Append)</Button>
-          <input type='file' accept='.json, .txt' style={{ display: 'none' }} ref={categoryImportRef} onChange={(e) => importCategories(e, false)} />
-          <input type='file' accept='.json, .txt' style={{ display: 'none' }} ref={categoryAppendImportRef} onChange={(e) => importCategories(e, true)} />
-          <Heading p='1' size='lg'>Categories</Heading>
-          <Flex p='1'>
-            <Input ml='2' maxW='250' value={newCategory} onChange={handleNewCategoryInputChange} placeholder='New Category' />
-            <Button ml='2' aria-label='Add category' onClick={addCategory}>Add Category</Button>
-          </Flex>
-          <UnorderedList>
-            {categories.map((category, index) => (
-              <div key={index}>
-                <Flex p='1' alignItems='center'>
-                  <ListItem pr='5'>{category.name}</ListItem>
-                  {category.subCategories.length === 0 && <Button mr='1' aria-label='Assign context' onClick={() => openEdittingContextModal(index)}>Context</Button>}
-                  <Input mx='1' maxW='250' value={newSubCategories[index] || ''} onChange={(e) => handleNewSubCategoryInputChange(e, index)} placeholder='New Sub Category' />
-                  <Button mr='1' aria-label='Add Sub Category' onClick={() => addSubCategory(index)}>Add Sub Category</Button>
-                  <IconButton aria-label='Delete category' icon={<DeleteIcon />} onClick={() => removeCategory(index)} />
-                </Flex>
-                {category.subCategories.map((subCategory, subCategoryIndex) => (
-                  <Flex key={subCategoryIndex} p='1' ml='5' alignItems='center'>
-                    <ListItem as='p' pr='5'>{subCategory.name}</ListItem>
-                    <Button mr='1' aria-label='Assign context' onClick={() => openEdittingContextModal(index, subCategoryIndex)}>Context</Button>
-                    <IconButton aria-label='Delete sub category' icon={<DeleteIcon />} onClick={() => removeSubCategory(index, subCategoryIndex)} />
+          <FormControl display='flex' alignItems='center' mb='2'>
+            <FormLabel htmlFor='showCategories' style={{ cursor: 'pointer', userSelect: 'none' }} mb='0'>
+              Show Categories
+            </FormLabel>
+            <Switch id='showCategories' isChecked={showCategories} onChange={handleShowCategoriesChange} />
+          </FormControl>
+          <FormControl display='flex' alignItems='center' mb='4'>
+            <FormLabel htmlFor='showPredictions' style={{ cursor: 'pointer', userSelect: 'none' }} mb='0'>
+              Show Predictions
+            </FormLabel>
+            <Switch id='showPredictions' isChecked={showPredictions} onChange={handleShowPredictionsChange} />
+          </FormControl>
+          {showCategories &&
+          <>
+            <Button ml='2' aria-label='Export' onClick={exportCategories}>Export</Button>
+            <Button ml='2' aria-label='Import (Replace)' onClick={() => categoryImportRef.current?.click()}>Import (Replace)</Button>
+            <Button ml='2' aria-label='Import (Append)' onClick={() => categoryAppendImportRef.current?.click()}>Import (Append)</Button>
+            <input type='file' accept='.json, .txt' style={{ display: 'none' }} ref={categoryImportRef} onChange={(e) => importCategories(e, false)} />
+            <input type='file' accept='.json, .txt' style={{ display: 'none' }} ref={categoryAppendImportRef} onChange={(e) => importCategories(e, true)} />
+            <Heading p='1' size='lg'>Categories</Heading>
+            <Flex p='1'>
+              <Input ml='2' maxW='250' value={newCategory} onChange={handleNewCategoryInputChange} placeholder='New Category' />
+              <Button ml='2' aria-label='Add category' onClick={addCategory}>Add Category</Button>
+            </Flex>
+            <UnorderedList>
+              {categories.map((category, index) => (
+                <div key={index}>
+                  <Flex p='1' alignItems='center'>
+                    <ListItem pr='5'>{category.name}</ListItem>
+                    {category.subCategories.length === 0 && <Button mr='1' aria-label='Assign context' onClick={() => openEdittingContextModal(index)}>Context</Button>}
+                    <Input mx='1' maxW='250' value={newSubCategories[index] || ''} onChange={(e) => handleNewSubCategoryInputChange(e, index)} placeholder='New Sub Category' />
+                    <Button mr='1' aria-label='Add Sub Category' onClick={() => addSubCategory(index)}>Add Sub Category</Button>
+                    <IconButton aria-label='Delete category' icon={<DeleteIcon />} onClick={() => removeCategory(index)} />
                   </Flex>
-                ))}
-              </div>
-            ))}
-          </UnorderedList>
+                  {category.subCategories.map((subCategory, subCategoryIndex) => (
+                    <Flex key={subCategoryIndex} p='1' ml='5' alignItems='center'>
+                      <ListItem as='p' pr='5'>{subCategory.name}</ListItem>
+                      <Button mr='1' aria-label='Assign context' onClick={() => openEdittingContextModal(index, subCategoryIndex)}>Context</Button>
+                      <IconButton aria-label='Delete sub category' icon={<DeleteIcon />} onClick={() => removeSubCategory(index, subCategoryIndex)} />
+                    </Flex>
+                  ))}
+                </div>
+              ))}
+            </UnorderedList>
+          </>
+          }
         </Box>
-        {queryResults && 
+        {showPredictions && queryResults && 
           <div>
             <Heading size='md' mb='2'>Category Predictions</Heading>
             <OrderedList>

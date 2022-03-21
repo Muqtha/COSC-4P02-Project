@@ -42,7 +42,7 @@ const Chatbot = ({ chatLog, setChatLog, query, waitingForResponse }: ChatbotProp
   }, [chatLog])
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
   }
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
