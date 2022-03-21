@@ -127,8 +127,8 @@ app.post('/query', async (req: Request<{}, {}, QueryParameters>, res) => {
     const subScores = await tf.matMul(subEmbeddings['queryEmbedding'], subEmbeddings['responseEmbedding'],false,true).data()
     subSortedResults = Array.from(subScores).map((score,index) => ({ category: subCategories[index], score: Math.round(score * 100) / 100 })).sort((a, b) => b.score - a.score)
 
-    categoryContext = subCategories[0].context
-    findAnswer = subCategories[0].findAnswer
+    categoryContext = subSortedResults[0].category.context
+    findAnswer = subSortedResults[0].category.findAnswer
   }
   else {
     categoryContext = sortedResults[0].category.context
