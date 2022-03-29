@@ -1,0 +1,262 @@
+[
+  {
+    "name": "Canada Games",
+    "findAnswer": true,
+    "context": "The Canada Games is a multi-sport event held every two years, alternating between the Canada Winter Games and the Canada Summer Games. They represent the highest level of national competition for Canadian athletes.\n\nThe (Canada) games are from August 6th to 21st, 2022.\n\nThe Canada Games events include basketball, soccer, baseball, and hockey.",
+    "subCategories": []
+  },
+  {
+    "name": "Parking",
+    "findAnswer": true,
+    "context": "Parking costs $200.\n\nParking is available at Brock University.",
+    "subCategories": [
+      {
+        "name": "Vehicle Spot",
+        "findAnswer": false,
+        "context": "$200",
+        "subCategories": []
+      }
+    ]
+  },
+  {
+    "name": "Alpine Ski",
+    "findAnswer": false,
+    "context": "Alpine skiing, or downhill skiing, is the pastime of sliding down snow-covered slopes on skis with fixed-heel bindings, unlike other types of skiing (cross-country, Telemark, or ski jumping), which use skis with free-heel bindings.",
+    "subCategories": []
+  },
+  {
+    "name": "Archery",
+    "findAnswer": false,
+    "context": "Archery is the sport, practice, or skill of using a bow to shoot arrows.",
+    "subCategories": []
+  },
+  {
+    "name": "Artistic Swimming",
+    "findAnswer": false,
+    "context": "Artistic swimming is a sport where swimmers perform a synchronized choreographed routine, accompanied by music.",
+    "subCategories": []
+  },
+  {
+    "name": "Athletics",
+    "findAnswer": false,
+    "context": "Athletics or Track and Field is a sport that includes athletic contests based on running, jumping, and throwing skills.",
+    "subCategories": []
+  },
+  {
+    "name": "Badminton",
+    "findAnswer": false,
+    "context": "Badminton is a racquet sport played using racquets to hit a shuttlecock across a net. Although it may be played with larger teams, the most common forms of the game are \"singles\" (with one player per side) and \"doubles\" (with two players per side).",
+    "subCategories": []
+  },
+  {
+    "name": "Baseball",
+    "findAnswer": false,
+    "context": "Baseball is a bat-and-ball game played between two opposing teams, of nine players each, that take turns batting and fielding. The game proceeds when a player on the fielding team, called the pitcher, throws a ball which a player on the batting team tries to hit with a bat. The objective of the offensive team (batting team) is to hit the ball into the field of play, allowing its players to run the bases, having them advance counter-clockwise around four bases to score what are called \"runs\". The objective of the defensive team (fielding team) is to prevent batters from becoming runners, and to prevent runners' advance around the bases.[2] A run is scored when a runner legally advances around the bases in order and touches home plate (the place where the player started as a batter). The team that scores the most runs by the end of the game is the winner.",
+    "subCategories": []
+  },
+  {
+    "name": "Basketball",
+    "findAnswer": false,
+    "context": "Basketball is a team sport in which two teams, most commonly of five players each, opposing one another on a rectangular court, compete with the primary objective of shooting a basketball (approximately 9.4 inches (24 cm) in diameter) through the defender's hoop (a basket 18 inches (46 cm) in diameter mounted 10 feet (3.048 m) high to a backboard at each end of the court, while preventing the opposing team from shooting through their own hoop. A field goal is worth two points, unless made from behind the three-point line, when it is worth three. After a foul, timed play stops and the player fouled or designated to shoot a technical foul is given one, two or three one-point free throws. The team with the most points at the end of the game wins, but if regulation play expires with the score tied, an additional period of play (overtime) is mandated.",
+    "subCategories": []
+  },
+  {
+    "name": "Biathlon",
+    "findAnswer": false,
+    "context": "The biathlon is a winter sport that combines cross-country skiing and rifle shooting. It is treated as a race, with contestants skiing through a cross-country trail whose distance is divided into shooting rounds. The shooting rounds are not timed per se, but depending on the competition, missed shots result in extra distance or time being added to the contestant's total.",
+    "subCategories": []
+  },
+  {
+    "name": "Boxing",
+    "findAnswer": false,
+    "context": "Boxing is a combat sport in which two people, usually wearing protective gloves and other protective equipment such as hand wraps and mouth-guards, throw punches at each other for a predetermined amount of time in a boxing ring.",
+    "subCategories": []
+  },
+  {
+    "name": "Canoe Kayak",
+    "findAnswer": false,
+    "context": "Canoeing and Kayaking are recreational boating activities or paddle sports in which you kneel or sit facing forward in an open or closed-decked canoe, and propel yourself with a single-bladed paddle, under your own power.",
+    "subCategories": []
+  },
+  {
+    "name": "Cross Country Skiing",
+    "findAnswer": false,
+    "context": "Cross-country skiing is a form of skiing where skiers rely on their own motions to move across snow-covered terrain, rather than using ski lifts or other forms of assistance.",
+    "subCategories": []
+  },
+  {
+    "name": "Curling",
+    "findAnswer": false,
+    "context": "Curling is a sport in which players slide stones on a sheet of ice toward a target area which is segmented into four concentric circles. Two teams, each with four players, take turns sliding heavy, polished granite stones, also called rocks, across the ice curling sheet toward the house, a circular target marked on the ice.[2] Each team has eight stones, with each player throwing two. The purpose is to accumulate the highest score for a game; points are scored for the stones resting closest to the centre of the house at the conclusion of each end, which is completed when both teams have thrown all of their stones once. A game usually consists of eight or ten ends.",
+    "subCategories": []
+  },
+  {
+    "name": "Cycling",
+    "findAnswer": false,
+    "context": "Cycling is the sport of racing across a variety of terrains using a bicycle.",
+    "subCategories": []
+  },
+  {
+    "name": "Diving",
+    "findAnswer": false,
+    "context": "Diving is the sport of jumping or falling into water from a platform or springboard, usually while performing acrobatics.",
+    "subCategories": []
+  },
+  {
+    "name": "Fencing",
+    "findAnswer": false,
+    "context": "Fencing is a group of three related combat sports. The three disciplines in modern fencing are the foil, the épée, and the sabre (also saber); winning points are made through the weapon's contact with an opponent.",
+    "subCategories": []
+  },
+  {
+    "name": "Figure Skating",
+    "findAnswer": false,
+    "context": "",
+    "subCategories": []
+  },
+  {
+    "name": "Freestyle Ski",
+    "findAnswer": false,
+    "context": "",
+    "subCategories": []
+  },
+  {
+    "name": "Golf",
+    "findAnswer": false,
+    "context": "Golf is a club-and-ball sport in which players use various clubs to hit balls into a series of holes on a course in as few strokes as possible.\n\nGolf, unlike most ball games, cannot and does not utilize a standardized playing area, and coping with the varied terrains encountered on different courses is a key part of the game. The game at the usual level is played on a course with an arranged progression of 18 holes, though recreational courses can be smaller, often having nine holes. Each hole on the course must contain a teeing ground to start from, and a putting green containing the actual hole or cup 11 cm in diameter. There are other standard forms of terrain in between, such as the fairway, rough (long grass), bunkers (or \"sand traps\"), and various hazards (water, rocks) but each hole on a course is unique in its specific layout and arrangement.\n\nGolf is played for the lowest number of strokes by an individual, known as stroke play, or the lowest score on the most individual holes in a complete round by an individual or team, known as match play. Stroke play is the most commonly seen format at all levels, but most especially at the elite level.",
+    "subCategories": []
+  },
+  {
+    "name": "Gymnastics",
+    "findAnswer": false,
+    "context": "Gymnastics is a sport in which athletes perform short routines on different apparatuses. The goal is to achieve the highest score possible and is based on the techniques performed during a given routine.",
+    "subCategories": []
+  },
+  {
+    "name": "Hockey",
+    "findAnswer": false,
+    "context": "Ice hockey is a contact winter team sport played on ice skates, usually on an ice skating rink with lines and markings specific to the sport. In ice hockey, two opposing teams use ice hockey sticks to control, advance and shoot a closed, vulcanized, rubber disc called a \"puck\" into the other team's goal. Each goal is worth one point. The team which scores the most goals is declared the winner. ",
+    "subCategories": []
+  },
+  {
+    "name": "Judo",
+    "findAnswer": false,
+    "context": "The objective of competitive judo is to throw an opponent, immobilize them with a pin, or force an opponent to submit with a joint lock or a choke. While strikes and use of weapons are included in some pre-arranged forms (kata), they are not frequently trained and are illegal in judo competition or free practice.",
+    "subCategories": []
+  },
+  {
+    "name": "Karate",
+    "findAnswer": false,
+    "context": "Karate is divided into style organizations. These organizations sometimes cooperate in non-style specific sport karate organizations or federations. Examples of sport organizations include AAKF/ITKF, AOK, TKL, AKA, WKF, NWUKO, WUKF and WKC.[34] Organizations hold competitions (tournaments) from local to international level. Tournaments are designed to match members of opposing schools or styles against one another in kata, sparring and weapons demonstration. They are often separated by age, rank and sex with potentially different rules or standards based on these factors. The tournament may be exclusively for members of a particular style (closed) or one in which any martial artist from any style may participate within the rules of the tournament (open).",
+    "subCategories": []
+  },
+  {
+    "name": "Lacrosse",
+    "findAnswer": false,
+    "context": "Lacrosse is a sport in which players use the head of the lacrosse stick to carry, pass, catch, and shoot the ball into the goal. The sport has four versions that have different sticks, fields, rules and equipment: field lacrosse, women's lacrosse, box lacrosse and intercrosse. The men's games, field lacrosse (outdoor) and box lacrosse (indoor), are contact sports and all players wear protective gear: helmet, gloves, shoulder pads, and elbow pads. The women's game is played outdoors and does not allow body contact but does allow stick to stick contact. The only protective gear required for women players is eyegear, while goalies wear helmets and protective pads. Intercrosse is a mixed-gender non-contact sport played indoors that uses an all-plastic stick and a softer ball.",
+    "subCategories": []
+  },
+  {
+    "name": "Ringette",
+    "findAnswer": false,
+    "context": "Ringette is a non-contact winter team sport played on an ice rink using ice hockey skates, straight sticks with drag-tips and a blue, rubber, pneumatic ring designed for use on ice surfaces. Created in Canada in 1963, ringette is now one of the most popular team sports for women in Canada. Ringette is one of the fastest team sports on ice.",
+    "subCategories": []
+  },
+  {
+    "name": "Rowing",
+    "findAnswer": false,
+    "context": "Rowing is the sport of racing boats using oars. It differs from paddling sports in that rowing oars are attached to the boat using oarlocks, while paddles are not connected to the boat. Rowing is divided into two disciplines: sculling and sweep rowing. In sculling, each rower holds two oars—one in each hand, while in sweep rowing each rower holds one oar with both hands. There are several boat classes in which athletes may compete, ranging from single sculls, occupied by one person, to shells with eight rowers and a coxswain, called eights. There are a wide variety of course types and formats of racing, but most elite and championship level racing is conducted on calm water courses 2 kilometres long with several lanes marked using buoys.",
+    "subCategories": []
+  },
+  {
+    "name": "Rugby Sevens",
+    "findAnswer": false,
+    "context": "Rugby sevens (commonly known as simply sevens and originally known as seven-a-side rugby), is a variant of rugby union in which teams are made up of seven players playing seven-minute halves, instead of the usual 15 players playing 40-minute halves.",
+    "subCategories": []
+  },
+  {
+    "name": "Sailing",
+    "findAnswer": false,
+    "context": "Yacht racing is a sailing sport involving sailing yachts and larger sailboats. It is composed of multiple yachts, in direct competition, racing around a course marked by buoys or other fixed navigational devices or racing longer distances across open water from point-to-point. It can involve a series of races with buoy racing or multiple legs when point-to-point racing.",
+    "subCategories": []
+  },
+  {
+    "name": "Snowboard",
+    "findAnswer": false,
+    "context": "Competitive snowboarding is when athletes perform a variety of tasks while using a snowboard, including racing against other competitors, performing tricks in the air and navigating through difficult terrain.",
+    "subCategories": []
+  },
+  {
+    "name": "Soccer",
+    "findAnswer": false,
+    "context": "Association football, more commonly known as simply football or soccer, is a team sport played with a spherical ball between two teams of 11 players. The game is played on a rectangular field called a pitch with a goal at each end. The object of the game is to score more goals than the opposition by moving the ball beyond the goal line into the opposing goal, usually within a time frame of 90 or more minutes.",
+    "subCategories": []
+  },
+  {
+    "name": "Softball",
+    "findAnswer": false,
+    "context": "Softball is a game similar to baseball played with a larger ball (28 to 40 cm circumference) on a field that has base lengths of 60 feet, a pitcher's mound that ranges from 35 to 43 feet away from home plate, and a home run fence that is 220–300 feet away from home plate.",
+    "subCategories": []
+  },
+  {
+    "name": "Speed Skating",
+    "findAnswer": false,
+    "context": "Speed skating is a competitive form of ice skating in which the competitors race each other in travelling a certain distance on skates. Types of speed skating are long track speed skating, short track speed skating, and marathon speed skating.",
+    "subCategories": []
+  },
+  {
+    "name": "Squash",
+    "findAnswer": false,
+    "context": "Squash is a racket and ball sport played by two players in a four-walled court with a small, hollow rubber ball. The players alternate in striking the ball with their rackets onto the playable surfaces of the four walls of the court. The objective of the game is to hit the ball in such a way that the opponent is not able to play a valid return.",
+    "subCategories": []
+  },
+  {
+    "name": "Swimming",
+    "findAnswer": false,
+    "context": "Swimming is an individual or team racing sport that requires the use of one's entire body to move through water. The sport takes place in pools or open water (e.g., in a sea or lake).",
+    "subCategories": []
+  },
+  {
+    "name": "Tennis",
+    "findAnswer": false,
+    "context": "Tennis is a racket sport that can be played individually against a single opponent (singles) or between two teams of two players each (doubles). Each player uses a tennis racket that is strung with cord to strike a hollow rubber ball covered with felt over or around a net and into the opponent's court. The object of the game is to manoeuvre the ball in such a way that the opponent is not able to play a valid return. The player who is unable to return the ball validly will not gain a point, while the opposite player will.",
+    "subCategories": [
+      {
+        "name": "Tennis",
+        "findAnswer": false,
+        "context": "Tennis is a great sport",
+        "subCategories": []
+      },
+      {
+        "name": "Table Tennis",
+        "findAnswer": false,
+        "context": "Table tennis, also known as ping-pong and whiff-whaff, is a sport in which two or four players hit a lightweight ball, also known as the ping-pong ball, back and forth across a table using small solid rackets. The game takes place on a hard table divided by a net. Except for the initial serve, the rules are generally as follows: players must allow a ball played toward them to bounce once on their side of the table and must return it so that it bounces on the opposite side at least once. A point is scored when a player fails to return the ball within the rules. Play is fast and demands quick reactions. Spinning the ball alters its trajectory and limits an opponent's options, giving the hitter a great advantage.",
+        "subCategories": []
+      }
+    ]
+  },
+  {
+    "name": "Triathlon",
+    "findAnswer": false,
+    "context": "A triathlon is an endurance multisport race consisting of swimming, cycling, and running over various distances. Triathletes compete for fastest overall completion time, racing each segment sequentially with the time transitioning between the disciplines included.",
+    "subCategories": []
+  },
+  {
+    "name": "Volleyball",
+    "findAnswer": false,
+    "context": "Volleyball is a team sport in which two teams of six players are separated by a net. Each team tries to score points by grounding a ball on the other team's court under organized rules.",
+    "subCategories": []
+  },
+  {
+    "name": "Wheelchair Basketball",
+    "findAnswer": false,
+    "context": "Wheelchair basketball retains most major rules and scoring of basketball, and maintains a 10-foot basketball hoop and standard basketball court. The exceptions are rules which have been modified with consideration for the wheelchair. For example, \"travelling\" in wheelchair basketball occurs when the athlete touches their wheels more than twice after receiving or dribbling the ball. The individual must pass, bounce, or shoot the ball before touching the wheels again.",
+    "subCategories": []
+  },
+  {
+    "name": "Wrestling",
+    "findAnswer": false,
+    "context": "Wrestling is a combat sport involving grappling-type techniques such as clinch fighting, throws and takedowns, joint locks, pins and other grappling holds. A wrestling bout is a physical competition, between two (sometimes more) competitors or sparring partners, who attempt to gain and maintain a superior position.",
+    "subCategories": []
+  }
+]
