@@ -3,6 +3,7 @@ import { Box, Button, ChakraProvider, Checkbox, Flex, FormControl, FormLabel, He
 import { DeleteIcon } from '@chakra-ui/icons'
 import Chatbot from './Chatbot'
 import { AutoResizeTextarea } from './AutoResizeTextArea'
+import greet from './Greetings.json'
 
 export type Message = {
   type: 'question' | 'response'
@@ -88,13 +89,18 @@ const fetchTimeout = (url: string, ms: number, { signal, ...options }: RequestIn
   return promise.finally(() => clearTimeout(timeout))
 }
 
+// const greeting = greet.greetings;
+let greetings = greet.response;
+let welcome = greetings[Math.floor(Math.random() * greet.response.length)];
+// console.log(greetings);
+
 const App = () => {
   const [categories, setCategories] = React.useState<Category[]>(defaultCategories)
   const [newCategory, setNewCategory] = React.useState('')
   const [newSubCategories, setNewSubCategories] = React.useState<string[]>([])
   const [queryResults, setQueryResults] = React.useState<QueryResponse>()
   const [waitingForResponse, setWaitingForResponse] = React.useState(false)
-  const [chatLog, setChatLog] = React.useState<Message[]>([{ type: 'response', message: 'How can we help you today?'}])
+  const [chatLog, setChatLog] = React.useState<Message[]>([{ type: 'response', message: welcome}])
   const [edittingCategory, setEdittingCategory] = React.useState<ContextEdit | undefined>()
   const [showCategories, setShowCategories] = React.useState(true)
   const [showPredictions, setShowPredictions] = React.useState(true)
