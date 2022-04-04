@@ -19,6 +19,16 @@
   animation-delay: 0.25s;
 }
 
+.text-link {
+  color: blue;
+  text-decoration: underline;
+}
+
+.text-link-dark {
+  color: darkblue;
+  text-decoration: underline;
+}
+
 @keyframes typing-dot {
   15% {
     transform: translateY(-35%);
