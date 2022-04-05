@@ -436,7 +436,7 @@ const App = () => {
                     <Button mx='2' aria-label='Add Sub Category' onClick={() => addSubCategory(index)}>Add Sub Category</Button>
                     <IconButton aria-label='Delete category' icon={<DeleteIcon />} onClick={() => removeCategory(index)} />
                   </Flex>
-                  {category.subCategories.map((subCategory, subCategoryIndex) => (
+                  {category.subCategories.sort(compareCategories).map((subCategory, subCategoryIndex) => (
                     <Flex key={subCategoryIndex} p='1' ml='5' alignItems='center'>
                       {edittingCategoryName?.categoryIndex === index && edittingCategoryName?.subCategoryIndex === subCategoryIndex ?
                         <>
