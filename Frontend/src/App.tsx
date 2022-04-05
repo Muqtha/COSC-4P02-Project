@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box, Button, ChakraProvider, Checkbox, Flex, FormControl, FormLabel, Heading, IconButton, Input, ListItem, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, OrderedList, Switch, UnorderedList, useDisclosure } from '@chakra-ui/react'
-import { DeleteIcon } from '@chakra-ui/icons'
+import { CheckIcon, CloseIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons'
 import Chatbot from './Chatbot'
 import { AutoResizeTextarea } from './AutoResizeTextArea'
 import greet from './Greetings.json'
@@ -33,6 +33,12 @@ type Category = {
   findAnswer: boolean
   context: string
   subCategories: Category[]
+}
+
+type CategoryNameEdit = {
+  categoryIndex: number
+  subCategoryIndex: number | undefined
+  name: string
 }
 
 type ContextEdit = {
@@ -89,6 +95,16 @@ const fetchTimeout = (url: string, ms: number, { signal, ...options }: RequestIn
   return promise.finally(() => clearTimeout(timeout))
 }
 
+const compareCategories = (categoryA: Category, categoryB: Category): number => {
+  if (categoryA.name.toLowerCase() < categoryB.name.toLowerCase()) {
+    return -1
+  } else if(categoryA.name.toLowerCase() > categoryB.name.toLowerCase()) {
+    return 1
+  } else {
+    return 0
+  }
+}
+
 // const greeting = greet.greetings;
 let greetings = greet.response;
 let welcome = greetings[Math.floor(Math.random() * greet.response.length)];
@@ -101,6 +117,7 @@ const App = () => {
   const [queryResults, setQueryResults] = React.useState<QueryResponse>()
   const [waitingForResponse, setWaitingForResponse] = React.useState(false)
   const [chatLog, setChatLog] = React.useState<Message[]>([{ type: 'response', message: welcome}])
+  const [edittingCategoryName, setEdittingCategoryName] = React.useState<CategoryNameEdit>()
   const [edittingCategory, setEdittingCategory] = React.useState<ContextEdit | undefined>()
   const [showCategories, setShowCategories] = React.useState(true)
   const [showPredictions, setShowPredictions] = React.useState(true)
@@ -154,6 +171,13 @@ const App = () => {
     }
   }
 
+  const handleEdittingCategoryNameInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (edittingCategoryName) {
+      const newEdittingCategoryName: CategoryNameEdit = { ...edittingCategoryName, name: event.target.value }
+      setEdittingCategoryName(newEdittingCategoryName)
+    }
+  }
+
   const addCategory = () => {
     if (newCategory) {
       setCategories(categories => categories.concat({ name: newCategory, findAnswer: false, context: '', subCategories: [] }))
@@ -162,6 +186,8 @@ const App = () => {
   }
   
   const addSubCategory = (index: number) => {
+    if (!newSubCategories[index]) return
+
     const newCategories = [...categories]
 
     newCategories[index].subCategories.push({ name: newSubCategories[index], findAnswer: false, context: '', subCategories: [] })
@@ -171,6 +197,10 @@ const App = () => {
 
     subCategories[index] = ''
     setNewSubCategories(subCategories)
+  }
+
+  const editCategoryName = (categoryIndex: number, subCategoryIndex?: number) => {
+    setEdittingCategoryName({ name: subCategoryIndex !== undefined ? categories[categoryIndex].subCategories[subCategoryIndex].name : categories[categoryIndex].name, categoryIndex, subCategoryIndex })
   }
 
   const openEdittingContextModal = (index: number, subIndex?: number) => {
@@ -229,6 +259,27 @@ const App = () => {
     newCategories[index].subCategories = newSubCategories
     setEdittingCategory(undefined)
     setCategories(newCategories)
+  }
+
+  const saveCategoryNameChange = () => {
+    if (edittingCategoryName) {
+      setCategories(categories => {
+        const newCategories = [...categories]
+
+        if (edittingCategoryName.subCategoryIndex === undefined) {
+          newCategories[edittingCategoryName.categoryIndex].name = edittingCategoryName.name
+        } else {
+          newCategories[edittingCategoryName.categoryIndex].subCategories[edittingCategoryName.subCategoryIndex].name = edittingCategoryName.name
+        }
+
+        return newCategories
+      })
+      setEdittingCategoryName(undefined)
+    }
+  }
+
+  const cancelCategoryNameChange = () => {
+    setEdittingCategoryName(undefined)
   }
 
   const query = async (input: string) => {
@@ -365,18 +416,40 @@ const App = () => {
               <Button ml='2' aria-label='Add category' onClick={addCategory}>Add Category</Button>
             </Flex>
             <UnorderedList>
-              {categories.map((category, index) => (
+              {categories.sort(compareCategories).map((category, index) => (
                 <div key={index}>
                   <Flex p='1' alignItems='center'>
-                    <ListItem pr='5'>{category.name}</ListItem>
+                    {edittingCategoryName?.categoryIndex === index && edittingCategoryName?.subCategoryIndex === undefined ? 
+                      <>
+                        <Input mx='1' maxW='250' value={edittingCategoryName?.name || ''} onChange={handleEdittingCategoryNameInputChange} placeholder='New Category Name' />
+                        <IconButton mr='1' aria-label='Save category name' icon={<CheckIcon />} onClick={saveCategoryNameChange} />
+                        <IconButton mr='1' aria-label='Cancel category name edit' icon={<CloseIcon />} onClick={cancelCategoryNameChange} />
+                      </>
+                    :
+                      <>
+                        <ListItem pr='5'>{category.name}</ListItem>
+                        <IconButton mr='1' aria-label='Edit category' icon={<EditIcon />} onClick={() => editCategoryName(index)} />
+                      </>
+                    }
                     {category.subCategories.length === 0 && <Button mr='1' aria-label='Assign context' onClick={() => openEdittingContextModal(index)}>Context</Button>}
-                    <Input mx='1' maxW='250' value={newSubCategories[index] || ''} onChange={(e) => handleNewSubCategoryInputChange(e, index)} placeholder='New Sub Category' />
-                    <Button mr='1' aria-label='Add Sub Category' onClick={() => addSubCategory(index)}>Add Sub Category</Button>
+                    <Input ml='1' maxW='250' value={newSubCategories[index] || ''} onChange={(e) => handleNewSubCategoryInputChange(e, index)} placeholder='New Sub Category' />
+                    <Button mx='2' aria-label='Add Sub Category' onClick={() => addSubCategory(index)}>Add Sub Category</Button>
                     <IconButton aria-label='Delete category' icon={<DeleteIcon />} onClick={() => removeCategory(index)} />
                   </Flex>
                   {category.subCategories.map((subCategory, subCategoryIndex) => (
                     <Flex key={subCategoryIndex} p='1' ml='5' alignItems='center'>
-                      <ListItem as='p' pr='5'>{subCategory.name}</ListItem>
+                      {edittingCategoryName?.categoryIndex === index && edittingCategoryName?.subCategoryIndex === subCategoryIndex ?
+                        <>
+                          <Input mx='1' maxW='250' value={edittingCategoryName?.name || ''} onChange={handleEdittingCategoryNameInputChange} placeholder='New Sub Category Name' />
+                          <IconButton mr='1' aria-label='Save category name' icon={<CheckIcon />} onClick={saveCategoryNameChange} />
+                          <IconButton mr='1' aria-label='Cancel category name edit' icon={<CloseIcon />} onClick={cancelCategoryNameChange} />
+                        </> 
+                        :
+                        <>
+                          <ListItem as='p' pr='5'>{subCategory.name}</ListItem>
+                          <IconButton mr='1' aria-label='Edit sub category' icon={<EditIcon />} onClick={() => editCategoryName(index, subCategoryIndex)} />
+                        </>
+                      }
                       <Button mr='1' aria-label='Assign context' onClick={() => openEdittingContextModal(index, subCategoryIndex)}>Context</Button>
                       <IconButton aria-label='Delete sub category' icon={<DeleteIcon />} onClick={() => removeSubCategory(index, subCategoryIndex)} />
                     </Flex>
