@@ -172,6 +172,8 @@ const App = () => {
   }
   
   const addSubCategory = (index: number) => {
+    if (!newSubCategories[index]) return
+
     const newCategories = [...categories]
 
     newCategories[index].subCategories.push({ name: newSubCategories[index], findAnswer: false, context: '', subCategories: [] })
