@@ -89,6 +89,16 @@ const fetchTimeout = (url: string, ms: number, { signal, ...options }: RequestIn
   return promise.finally(() => clearTimeout(timeout))
 }
 
+const compareCategories = (categoryA: Category, categoryB: Category): number => {
+  if (categoryA.name < categoryB.name) {
+    return -1
+  } else if(categoryA.name > categoryB.name) {
+    return 1
+  } else {
+    return 0
+  }
+}
+
 // const greeting = greet.greetings;
 let greetings = greet.response;
 let welcome = greetings[Math.floor(Math.random() * greet.response.length)];
@@ -365,7 +375,7 @@ const App = () => {
               <Button ml='2' aria-label='Add category' onClick={addCategory}>Add Category</Button>
             </Flex>
             <UnorderedList>
-              {categories.map((category, index) => (
+              {categories.sort(compareCategories).map((category, index) => (
                 <div key={index}>
                   <Flex p='1' alignItems='center'>
                     <ListItem pr='5'>{category.name}</ListItem>
