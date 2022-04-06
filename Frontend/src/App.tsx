@@ -1,6 +1,7 @@
 import React from 'react'
 import { Box, Button, ChakraProvider, Checkbox, Flex, FormControl, FormLabel, Heading, IconButton, Input, ListItem, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, OrderedList, Switch, UnorderedList, useDisclosure } from '@chakra-ui/react'
 import { CheckIcon, CloseIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons'
+import { mode } from '@chakra-ui/theme-tools'
 import Chatbot from './Chatbot'
 import { AutoResizeTextarea } from './AutoResizeTextArea'
 import greet from './Greetings.json'
@@ -83,7 +84,7 @@ const fetchTimeout = (url: string, ms: number, { signal, ...options }: RequestIn
 const compareCategories = (categoryA: Category, categoryB: Category): number => {
   if (categoryA.name.toLowerCase() < categoryB.name.toLowerCase()) {
     return -1
-  } else if(categoryA.name.toLowerCase() > categoryB.name.toLowerCase()) {
+  } else if (categoryA.name.toLowerCase() > categoryB.name.toLowerCase()) {
     return 1
   } else {
     return 0
@@ -101,7 +102,7 @@ const App = () => {
   const [newSubCategories, setNewSubCategories] = React.useState<string[]>([])
   const [queryResults, setQueryResults] = React.useState<QueryResponse>()
   const [waitingForResponse, setWaitingForResponse] = React.useState(false)
-  const [chatLog, setChatLog] = React.useState<Message[]>([{ type: 'response', message: welcome}])
+  const [chatLog, setChatLog] = React.useState<Message[]>([{ type: 'response', message: welcome }])
   const [edittingCategoryName, setEdittingCategoryName] = React.useState<CategoryNameEdit>()
   const [edittingCategory, setEdittingCategory] = React.useState<ContextEdit | undefined>()
   const [showCategories, setShowCategories] = React.useState(true)
@@ -113,7 +114,7 @@ const App = () => {
   // when this component loads, check to see if localStorage contains categories and if so, use them
   React.useEffect(() => {
     const categoriesStorageValue = localStorage.getItem('categories')
-    
+
     if (categoriesStorageValue) {
       setCategories(JSON.parse(categoriesStorageValue))
     }
@@ -169,7 +170,7 @@ const App = () => {
       setNewCategory('')
     }
   }
-  
+
   const addSubCategory = (index: number) => {
     if (!newSubCategories[index]) return
 
@@ -177,7 +178,7 @@ const App = () => {
 
     newCategories[index].subCategories.push({ name: newSubCategories[index], findAnswer: false, context: '', subCategories: [] })
     setCategories(newCategories)
-    
+
     const subCategories = [...newSubCategories]
 
     subCategories[index] = ''
@@ -216,16 +217,16 @@ const App = () => {
 
         newCategories[edittingCategory.index].subCategories[subIndex].findAnswer = edittingCategory.findAnswer
         newCategories[edittingCategory.index].subCategories[subIndex].context = edittingCategory.context
-  
+
         return newCategories
       })
     } else {
       setCategories(categories => {
         let newCategories = [...categories]
-  
+
         newCategories[edittingCategory.index].findAnswer = edittingCategory.findAnswer
         newCategories[edittingCategory.index].context = edittingCategory.context
-  
+
         return newCategories
       })
     }
@@ -270,7 +271,7 @@ const App = () => {
   const query = async (input: string) => {
     setWaitingForResponse(true)
     setQueryResults(undefined)
-   
+
     try {
       const response = await fetchTimeout(`${serverAddress}/query`, queryTimeout, {
         method: 'post',
@@ -314,19 +315,19 @@ const App = () => {
     const files = event.target.files
 
     if (!files) return
-    
+
     try {
       const importedCategories = await fileToJSON(files[0])
-  
+
       if (!Array.isArray(importedCategories)) {
         throw new Error('Input file format incorrect. The input should be an array.')
       }
-  
+
       for (let i = 0; i < importedCategories.length; i++) {
         if (importedCategories[i].name === undefined) {
           throw new Error('Input file format incorrect. Each element should have a name property.')
         }
-    
+
         // if (importedCategories[i].findAnswer === undefined) {
         //   throw new Error('Input file format incorrect. Each element should have a findAnswer property that must be true or false.')
         // }
@@ -334,7 +335,7 @@ const App = () => {
         if (importedCategories[i].context === undefined) {
           throw new Error('Input file format incorrect. Each element should have a context property, even if it is blank.')
         }
-    
+
         if (importedCategories[i].subCategories === undefined || !Array.isArray(importedCategories[i].subCategories)) {
           throw new Error('Input file format incorrect. Each element should have a subCategories property that contains an array (use an empty array if it has none).')
         }
@@ -347,11 +348,11 @@ const App = () => {
           // if (importedCategories[i].subCategories[j].findAnswer === undefined) {
           //   throw new Error('Input file format incorrect. Each subCategory array element should have a findAnswer property that must be true or false.')
           // }
-      
+
           if (importedCategories[i].subCategories[j].context === undefined) {
             throw new Error('Input file format incorrect. Each subCategory array element should have a context property, even if it is blank.')
           }
-      
+
           if (importedCategories[i].subCategories[j].subCategories === undefined || !Array.isArray(importedCategories[i].subCategories[j].subCategories)) {
             throw new Error('Input file format incorrect. Each subCategory array element should have a subCategories property that contains an array (use an empty array if it has none).')
           }
@@ -364,7 +365,7 @@ const App = () => {
         setCategories(importedCategories)
       }
 
-    } catch (err) { 
+    } catch (err) {
       console.warn(err)
       alert(err)
     } finally {
@@ -381,92 +382,117 @@ const App = () => {
       const data = await response.json()
 
       setCategories(data)
-      
+
     } catch (err: any) {
       if (err.name === 'AbortError') {
         console.warn('Query timeout')
       } else {
         console.warn(err)
       }
-    } 
+    }
   }
 
   return (
     <ChakraProvider>
-      <Box p='10'>
-        <Box mb='10'>
-          <FormControl display='flex' alignItems='center' mb='2'>
-            <FormLabel htmlFor='showCategories' style={{ cursor: 'pointer', userSelect: 'none' }} mb='0'>
-              Show Categories
-            </FormLabel>
-            <Switch id='showCategories' isChecked={showCategories} onChange={handleShowCategoriesChange} />
-          </FormControl>
-          <FormControl display='flex' alignItems='center' mb='4'>
-            <FormLabel htmlFor='showPredictions' style={{ cursor: 'pointer', userSelect: 'none' }} mb='0'>
-              Show Predictions
-            </FormLabel>
-            <Switch id='showPredictions' isChecked={showPredictions} onChange={handleShowPredictionsChange} />
-          </FormControl>
+      <Box p='5' position='absolute' top='0' right='0'>
+        <FormControl display='flex' alignItems='center' mb='2'>
+          <FormLabel htmlFor='showCategories' style={{ cursor: 'pointer', userSelect: 'none' }} mb='0'>
+            Show Categories
+          </FormLabel>
+          <Switch id='showCategories' isChecked={showCategories} onChange={handleShowCategoriesChange} />
+        </FormControl>
+        <FormControl display='flex' alignItems='center' mb='4'>
+          <FormLabel htmlFor='showPredictions' style={{ cursor: 'pointer', userSelect: 'none' }} mb='0'>
+            Show Predictions
+          </FormLabel>
+          <Switch id='showPredictions' isChecked={showPredictions} onChange={handleShowPredictionsChange} />
+        </FormControl>
+      </Box>
+      <Flex p='5' wrap='wrap'>
+        <Box mb='10' maxW={{ base: '100%', xl: '66%' }}>
           {showCategories &&
-          <>
-            <Button ml='2' aria-label='Export' onClick={exportCategories}>Export</Button>
-            <Button ml='2' aria-label='Import (Replace)' onClick={() => categoryImportRef.current?.click()}>Import (Replace)</Button>
-            <Button ml='2' aria-label='Import (Append)' onClick={() => categoryAppendImportRef.current?.click()}>Import (Append)</Button>
-            <Button ml='2' aria-label='Import (Replace) from GitHub' onClick={importDefaults}>Import (Replace) from GitHub</Button>
-            <input type='file' accept='.json, .txt' style={{ display: 'none' }} ref={categoryImportRef} onChange={(e) => importCategories(e, false)} />
-            <input type='file' accept='.json, .txt' style={{ display: 'none' }} ref={categoryAppendImportRef} onChange={(e) => importCategories(e, true)} />
-            <Heading p='1' size='lg'>Categories</Heading>
-            <Flex p='1'>
-              <Input ml='2' maxW='250' value={newCategory} onChange={handleNewCategoryInputChange} placeholder='New Category' />
-              <Button ml='2' aria-label='Add category' onClick={addCategory}>Add Category</Button>
-            </Flex>
-            <UnorderedList>
-              {categories.sort(compareCategories).map((category, index) => (
-                <div key={index}>
-                  <Flex p='1' alignItems='center'>
-                    {edittingCategoryName?.categoryIndex === index && edittingCategoryName?.subCategoryIndex === undefined ? 
-                      <>
-                        <Input mx='1' maxW='250' value={edittingCategoryName?.name || ''} onChange={handleEdittingCategoryNameInputChange} placeholder='New Category Name' />
-                        <IconButton mr='1' aria-label='Save category name' icon={<CheckIcon />} onClick={saveCategoryNameChange} />
-                        <IconButton mr='1' aria-label='Cancel category name edit' icon={<CloseIcon />} onClick={cancelCategoryNameChange} />
-                      </>
-                    :
-                      <>
-                        <ListItem pr='5'>{category.name}</ListItem>
-                        <IconButton mr='1' aria-label='Edit category' icon={<EditIcon />} onClick={() => editCategoryName(index)} />
-                      </>
-                    }
-                    {category.subCategories.length === 0 && <Button mr='1' aria-label='Assign context' onClick={() => openEdittingContextModal(index)}>Context</Button>}
-                    <Input ml='1' maxW='250' value={newSubCategories[index] || ''} onChange={(e) => handleNewSubCategoryInputChange(e, index)} placeholder='New Sub Category' />
-                    <Button mx='2' aria-label='Add Sub Category' onClick={() => addSubCategory(index)}>Add Sub Category</Button>
-                    <IconButton aria-label='Delete category' icon={<DeleteIcon />} onClick={() => removeCategory(index)} />
-                  </Flex>
-                  {category.subCategories.sort(compareCategories).map((subCategory, subCategoryIndex) => (
-                    <Flex key={subCategoryIndex} p='1' ml='5' alignItems='center'>
-                      {edittingCategoryName?.categoryIndex === index && edittingCategoryName?.subCategoryIndex === subCategoryIndex ?
-                        <>
-                          <Input mx='1' maxW='250' value={edittingCategoryName?.name || ''} onChange={handleEdittingCategoryNameInputChange} placeholder='New Sub Category Name' />
-                          <IconButton mr='1' aria-label='Save category name' icon={<CheckIcon />} onClick={saveCategoryNameChange} />
-                          <IconButton mr='1' aria-label='Cancel category name edit' icon={<CloseIcon />} onClick={cancelCategoryNameChange} />
-                        </> 
-                        :
-                        <>
-                          <ListItem as='p' pr='5'>{subCategory.name}</ListItem>
-                          <IconButton mr='1' aria-label='Edit sub category' icon={<EditIcon />} onClick={() => editCategoryName(index, subCategoryIndex)} />
-                        </>
-                      }
-                      <Button mr='1' aria-label='Assign context' onClick={() => openEdittingContextModal(index, subCategoryIndex)}>Context</Button>
-                      <IconButton aria-label='Delete sub category' icon={<DeleteIcon />} onClick={() => removeSubCategory(index, subCategoryIndex)} />
-                    </Flex>
+            <>
+              <Flex p='1' wrap='wrap'>
+                <Heading size='lg'>Categories</Heading>
+                <Button ml='2' aria-label='Export' onClick={exportCategories}>Export</Button>
+                <Button ml='2' aria-label='Import (Replace)' onClick={() => categoryImportRef.current?.click()}>Import (Replace)</Button>
+                <Button ml='2' aria-label='Import (Append)' onClick={() => categoryAppendImportRef.current?.click()}>Import (Append)</Button>
+                <Button ml='2' aria-label='Import (Replace) from GitHub' onClick={importDefaults}>Import (Replace) from GitHub</Button>
+                <input type='file' accept='.json, .txt' style={{ display: 'none' }} ref={categoryImportRef} onChange={(e) => importCategories(e, false)} />
+                <input type='file' accept='.json, .txt' style={{ display: 'none' }} ref={categoryAppendImportRef} onChange={(e) => importCategories(e, true)} />
+              </Flex>
+              <Flex p='1'>
+                <Input ml='2' maxW='250' value={newCategory} onChange={handleNewCategoryInputChange} placeholder='New Category' />
+                <Button ml='2' aria-label='Add category' onClick={addCategory}>Add Category</Button>
+              </Flex>
+              <Box
+                h='85vh'
+                maxHeight='-webkit-fill-available'
+                overflowY='auto'
+                sx={{
+                  '&::-webkit-scrollbar-track': {
+                    bg: mode('gray.700', 'blue.600'),
+                  },
+                  '&::-webkit-scrollbar': {
+                    width: '12px',
+                    height: '12px',
+                  },
+                  '&::-webkit-scrollbar-thumb': {
+                    bg: mode('blue.600', 'gray.700'),
+                  },
+                  '&::-webkit-scrollbar-corner': {
+                    bg: mode('blue.600', 'gray.700'),
+                  }
+                }
+                }>
+                <UnorderedList>
+                  {categories.sort(compareCategories).map((category, index) => (
+                    <div key={index}>
+                      <Flex p='1' alignItems='center'>
+                        {edittingCategoryName?.categoryIndex === index && edittingCategoryName?.subCategoryIndex === undefined ?
+                          <>
+                            <Input mx='1' maxW='250' value={edittingCategoryName?.name || ''} onChange={handleEdittingCategoryNameInputChange} placeholder='New Category Name' />
+                            <IconButton mr='1' aria-label='Save category name' icon={<CheckIcon />} onClick={saveCategoryNameChange} />
+                            <IconButton mr='1' aria-label='Cancel category name edit' icon={<CloseIcon />} onClick={cancelCategoryNameChange} />
+                          </>
+                          :
+                          <>
+                            <ListItem pr='5'>{category.name}</ListItem>
+                            <IconButton mr='1' aria-label='Edit category' icon={<EditIcon />} onClick={() => editCategoryName(index)} />
+                          </>
+                        }
+                        {category.subCategories.length === 0 && <Button mr='1' aria-label='Assign context' onClick={() => openEdittingContextModal(index)}>Context</Button>}
+                        <Input ml='1' maxW='250' value={newSubCategories[index] || ''} onChange={(e) => handleNewSubCategoryInputChange(e, index)} placeholder='New Sub Category' />
+                        <Button mx='2' aria-label='Add Sub Category' onClick={() => addSubCategory(index)}>Add Sub Category</Button>
+                        <IconButton aria-label='Delete category' icon={<DeleteIcon />} onClick={() => removeCategory(index)} />
+                      </Flex>
+                      {category.subCategories.sort(compareCategories).map((subCategory, subCategoryIndex) => (
+                        <Flex key={subCategoryIndex} p='1' ml='5' alignItems='center'>
+                          {edittingCategoryName?.categoryIndex === index && edittingCategoryName?.subCategoryIndex === subCategoryIndex ?
+                            <>
+                              <Input mx='1' maxW='250' value={edittingCategoryName?.name || ''} onChange={handleEdittingCategoryNameInputChange} placeholder='New Sub Category Name' />
+                              <IconButton mr='1' aria-label='Save category name' icon={<CheckIcon />} onClick={saveCategoryNameChange} />
+                              <IconButton mr='1' aria-label='Cancel category name edit' icon={<CloseIcon />} onClick={cancelCategoryNameChange} />
+                            </>
+                            :
+                            <>
+                              <ListItem as='p' pr='5'>{subCategory.name}</ListItem>
+                              <IconButton mr='1' aria-label='Edit sub category' icon={<EditIcon />} onClick={() => editCategoryName(index, subCategoryIndex)} />
+                            </>
+                          }
+                          <Button mr='1' aria-label='Assign context' onClick={() => openEdittingContextModal(index, subCategoryIndex)}>Context</Button>
+                          <IconButton aria-label='Delete sub category' icon={<DeleteIcon />} onClick={() => removeSubCategory(index, subCategoryIndex)} />
+                        </Flex>
+                      ))}
+                    </div>
                   ))}
-                </div>
-              ))}
-            </UnorderedList>
-          </>
+                </UnorderedList>
+              </Box>
+            </>
           }
         </Box>
-        {showPredictions && queryResults && 
-          <div>
+        {showPredictions && queryResults &&
+          <Box ml='10' maxW={{ base: '100%', xl: '33%' }}>
             <Heading size='md' mb='2'>Category Predictions</Heading>
             <OrderedList>
               {queryResults.categoryResults.map((result, index) => (
@@ -490,9 +516,9 @@ const App = () => {
                 <ListItem key={index}>{answer.score ? `${answer.text}: ${Math.round(answer.score * 100) / 100}` : answer.text}</ListItem>
               ))}
             </OrderedList>
-          </div>
+          </Box>
         }
-      </Box>
+      </Flex>
       <Chatbot chatLog={chatLog} setChatLog={setChatLog} query={query} waitingForResponse={waitingForResponse} />
       <Modal size='xl' scrollBehavior='inside' isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
@@ -502,7 +528,7 @@ const App = () => {
           <ModalBody>
             <Heading size='xs'>If unchecked, the entire context will be the answer for this category</Heading>
             <Checkbox mb='2' isChecked={edittingCategory ? edittingCategory.findAnswer : false} onChange={handleContextAnswerChange}>Use model to search for answer in context</Checkbox>
-            <AutoResizeTextarea value={edittingCategory ? edittingCategory.context : ''} onChange={handleContextInputChange} placeholder='Context'/>
+            <AutoResizeTextarea value={edittingCategory ? edittingCategory.context : ''} onChange={handleContextInputChange} placeholder='Context' />
           </ModalBody>
           <ModalFooter>
             <Button colorScheme='blue' mr={3} onClick={assignContext}>Set context</Button>
