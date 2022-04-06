@@ -25,7 +25,7 @@
     "subCategories": []
   },
   {
-    "name": "All Venues",
+    "name": "All Venues all venues",
     "findAnswer": false,
     "context": "To view all venues available at the Niagara games please click the link provided https://niagara2022games.ca/venues/.",
     "subCategories": []
@@ -136,7 +136,7 @@
     "subCategories": []
   },
   {
-    "name": "Car rentals",
+    "name": "Car rentals rent cars",
     "findAnswer": false,
     "context": "For information about booking car rentals in Niagara With Avis rentals please click the link provided https://avis.ca/niagaragames.",
     "subCategories": [
@@ -167,13 +167,13 @@
     "subCategories": []
   },
   {
-    "name": "Donate",
+    "name": "Donate donations",
     "findAnswer": false,
     "context": "For information about donating please click the link provided https://niagara2022games.ca/donate/.",
     "subCategories": []
   },
   {
-    "name": "Employment",
+    "name": "Employment employment jobs",
     "findAnswer": false,
     "context": "All jobs available for the Niagara games will be listed at https://niagara2022games.ca/get-involved/employment/",
     "subCategories": []
@@ -739,7 +739,7 @@
     "subCategories": []
   },
   {
-    "name": "Volunteering",
+    "name": "Volunteering volunteering",
     "findAnswer": false,
     "context": "Volunteers are always encouraged, you can apply to volunteer here: https://niagara2022games.ca/get-involved/volunteering/.",
     "subCategories": []
