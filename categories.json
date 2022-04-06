@@ -849,5 +849,391 @@
         "subCategories": []
       }
     ]
-  }
+  },
+   {
+        "name": "All sports available all sports available",
+        "findAnswer": false,
+        "context": "The sports available at the Niagara games 2022 are Athletics, Baseball, Basketball, Beach Volleyball, Box Lacrosse, Canoe Kayak, Cycling, Diving, Golf, Mountain Bike, Rowing, Rugby Sevens, Sailing, Soccer, Softball, Swimming, Tennis, Triathlon, Volleyball, Wrestling. For more information about the sports available please click the link provided https://niagara2022games.ca/sports#Athletics.",
+        "subCategories": []
+    },
+    {
+        "name": "Athletics, Para-Athletics and Special Olympics athletics, para-athletics and special olympics",
+        "findAnswer": false,
+        "context": "",
+        "subCategories": [
+            {
+                "name": "Athletics, Para-Athletics and Special Olympics",
+                "findAnswer": false,
+                "context": "Athletics, or Track and Field, is a staple sport at any multi-sport competition worldwide. Athletics has been a part of the Canada Summer Games since the second edition in 1973. In 2022, there will be opportunities for para-athletes and Special Olympic athletes to compete as well. Athletics will be held at the new Canada Games Park.  For more information about this competition please click the link provided https://www.canadagames.ca/sports/athletics.",
+                "subCategories": []
+            },
+            {
+                "name": "Location location",
+                "findAnswer": false,
+                "context": "This game is played at Canada Games Park,you can find information about this location at https://niagara2022games.ca/venues#Canada-Games-Park. ",
+                "subCategories": []
+            }
+        ]
+    },
+    {
+        "name": "Baseball baseball",
+        "findAnswer": false,
+        "context": "",
+        "subCategories": [
+            {
+                "name": "Baseball",
+                "findAnswer": false,
+                "context": "Although the first official set of rules for baseball were published in New York, an early version of the sport was first played in southern Ontario, giving it strong Canadian roots. Featured since the inaugural Summer Games, baseball is set to be played at the Welland Baseball Stadium and also at Oakes Park in Niagara Falls. For more information about this competition please click the link provided https://www.canadagames.ca/sports/baseball.",
+                "subCategories": []
+            },
+            {
+                "name": "Location location",
+                "findAnswer": false,
+                "context": "This game is played at Welland Baseball Stadium,you can find information about this location at https://niagara2022games.ca/venues#Welland-Baseball-Stadium. ",
+                "subCategories": []
+            }
+        ]
+    },
+    {
+        "name": "Basketball basketball",
+        "findAnswer": false,
+        "context": "",
+        "subCategories": [
+            {
+                "name": "Basketball",
+                "findAnswer": false,
+                "context": "Basketball is a sport with deep, historic Canadian roots, being invented by Dr. James Naismith, who hailed from Almonte, Ontario. Canada has always enjoyed a strong women's program, with the men's program experiencing a resurgence in recent years, producing top talent to the NCAA, NBA, and WNBA. The basketball games will be hosted at the Meridian Centre in St. Catharines and at the Niagara College Welland Campus during the Niagara 2022 Games.  For more information about this competition please click the link provided https://www.canadagames.ca/sports/basketball.",
+                "subCategories": []
+            },
+            {
+                "name": "Location location",
+                "findAnswer": false,
+                "context": "This game is played at Meridian Centre,you can find information about this location at https://niagara2022games.ca/venues#Meridian-Centre. ",
+                "subCategories": []
+            }
+        ]
+    },
+    {
+        "name": "Beach Volleyball beach volleyball",
+        "findAnswer": false,
+        "context": "",
+        "subCategories": [
+            {
+                "name": "Beach Volleyball",
+                "findAnswer": false,
+                "context": "One of the many sports to be featured at the newly built Canada Games Park, beach volleyball was first popularised in Canada in the 1950s along the shores of Lake Ontario. The sport was first introduced to the Games in 2001. After a brief hiatus, beach volleyball returned to the Games in 2009, and has been a fixture ever since.  For more information about this competition please click the link provided https://www.canadagames.ca/sports/beach-volleyball.",
+                "subCategories": []
+            },
+            {
+                "name": "Location location",
+                "findAnswer": false,
+                "context": "This game is played at Canada Games Park,you can find information about this location at https://niagara2022games.ca/venues#Canada-Games-Park. ",
+                "subCategories": []
+            }
+        ]
+    },
+    {
+        "name": "Box Lacrosse box lacrosse",
+        "findAnswer": false,
+        "context": "",
+        "subCategories": [
+            {
+                "name": "Box Lacrosse",
+                "findAnswer": false,
+                "context": "Box lacrosse will be making its proud return to the Summer Games in 2022 for the first time since 1985, with games slated to take place at the Canada Games Park. Known as Tewaaraton and Baggataway by Indigenous communities, box lacrosse will be played on the traditional territory of the Anishinaabeg, Ojibway/Chippewa and Haudenosaunee peoples. For more information about this competition please click the link provided https://www.canadagames.ca/sports/box-lacrosse.",
+                "subCategories": []
+            },
+            {
+                "name": "Location location",
+                "findAnswer": false,
+                "context": "This game is played at Canada Games Park,you can find information about this location at https://niagara2022games.ca/venues#Canada-Games-Park. ",
+                "subCategories": []
+            }
+        ]
+    },
+    {
+        "name": "Canoe Kayak canoe kayak",
+        "findAnswer": false,
+        "context": "",
+        "subCategories": [
+            {
+                "name": "Canoe Kayak",
+                "findAnswer": false,
+                "context": "Internationally, canoe kayak has been one of Canada's top performing sports, and are long time events at the Canada Summer Games. Taking place at the picturesque Welland International Flatwater Centre, there will be multiple events across a variety of disciplines, showcasing the best Canada has to offer.  For more information about this competition please click the link provided https://www.canadagames.ca/sports/canoe-kayak.",
+                "subCategories": []
+            },
+            {
+                "name": "Location location",
+                "findAnswer": false,
+                "context": "This game is played at Welland International Flatwater Centre,you can find information about this location at https://niagara2022games.ca/venues#Welland-International-Flatwater-Centre. ",
+                "subCategories": []
+            }
+        ]
+    },
+    {
+        "name": "Cycling  cycling ",
+        "findAnswer": false,
+        "context": "",
+        "subCategories": [
+            {
+                "name": "Cycling ",
+                "findAnswer": false,
+                "context": " For more information about this competition please click the link provided https://www.canadagames.ca/sports/cycling-mountain-bike.",
+                "subCategories": []
+            },
+            {
+                "name": "Location location",
+                "findAnswer": false,
+                "context": "This game is played at Town of Pelham,you can find information about this location at https://niagara2022games.ca/venues#Town-of-Pelham. ",
+                "subCategories": []
+            }
+        ]
+    },
+    {
+        "name": "Diving diving",
+        "findAnswer": false,
+        "context": "",
+        "subCategories": [
+            {
+                "name": "Diving",
+                "findAnswer": false,
+                "context": "Diving will offer spectators captivating competition at the Niagara 2022 Games. The springboard and platform diving events will be held at Brock University's Eleanor Misener Aquatics Centre, and are fan favourites for their aesthetically pleasing and graceful nature.  For more information about this competition please click the link provided https://www.canadagames.ca/sports/diving.",
+                "subCategories": []
+            },
+            {
+                "name": "Location location",
+                "findAnswer": false,
+                "context": "This game is played at Brock Sport Facilities,you can find information about this location at https://niagara2022games.ca/venues#Brock-Sport-Facilities. ",
+                "subCategories": []
+            }
+        ]
+    },
+    {
+        "name": "Golf golf",
+        "findAnswer": false,
+        "context": "",
+        "subCategories": [
+            {
+                "name": "Golf",
+                "findAnswer": false,
+                "context": "One of the world's most popular sports, golf will feature two events at the Niagara 2022 Games. Both the team event and individual event will be played at the Legends on the Niagara Battlefield Course in Niagara Falls with four rounds of play.  For more information about this competition please click the link provided https://www.canadagames.ca/sports/golf.",
+                "subCategories": []
+            },
+            {
+                "name": "Location location",
+                "findAnswer": false,
+                "context": "This game is played at Legends on the Niagara Golf Course - Battlefield Course,you can find information about this location at https://niagara2022games.ca/venues#Legends-on-the-Niagara-Golf-Course. ",
+                "subCategories": []
+            }
+        ]
+    },
+    {
+        "name": "Mountain Bike mountain bike",
+        "findAnswer": false,
+        "context": "",
+        "subCategories": [
+            {
+                "name": "Mountain Bike",
+                "findAnswer": false,
+                "context": "Mountain biking is a fairly new sport, rising in popularity in the mid 1990s when it was first added to the Olympic Games. Races are typically off-road and involve a moderate degree of technical riding, with the Niagara 2022 Games hosting the event near Brock University through Twelve Mile Creek. For more information about this competition please click the link provided https://www.canadagames.ca/sports/cycling-mountain-bike.",
+                "subCategories": []
+            },
+            {
+                "name": "Location location",
+                "findAnswer": false,
+                "context": "This game is played at Twelve Mile Creek,you can find information about this location at https://niagara2022games.ca/venues#Twelve-Mile-Creek. ",
+                "subCategories": []
+            }
+        ]
+    },
+    {
+        "name": "Rowing rowing",
+        "findAnswer": false,
+        "context": "",
+        "subCategories": [
+            {
+                "name": "Rowing",
+                "findAnswer": false,
+                "context": "First making its appearance at the Canada Summer Games in 1989, rowing has grown from five events featuring only men to six disciplines contested by both men and women. Taking place at the Royal Canadian Henley Rowing Course, the Canada Games regatta is a benchmark event for many provinces and territories and serves as a stepping stone to Canada's national rowing team. For more information about this competition please click the link provided https://www.canadagames.ca/sports/rowing.",
+                "subCategories": []
+            },
+            {
+                "name": "Location location",
+                "findAnswer": false,
+                "context": "This game is played at Royal Canadian Henley Rowing Course,you can find information about this location at https://niagara2022games.ca/venues#Royal-Canadian-Henley-Rowing-Course. ",
+                "subCategories": []
+            }
+        ]
+    },
+    {
+        "name": "Rugby Sevens rugby sevens",
+        "findAnswer": false,
+        "context": "",
+        "subCategories": [
+            {
+                "name": "Rugby Sevens",
+                "findAnswer": false,
+                "context": "One of the oldest sports to be featured at the Niagara 2022 Games, Rugby Sevens has exploded in recent years, partly due to the success of the national Canadian women's team. Hosted on the playing fields of Brock University, 2022 will be the inaugural Rugby Sevens competition for the Canada Games.  For more information about this competition please click the link provided https://www.canadagames.ca/sports/rugby.",
+                "subCategories": []
+            },
+            {
+                "name": "Location location",
+                "findAnswer": false,
+                "context": "This game is played at Brock Sport Facilities,you can find information about this location at https://niagara2022games.ca/venues#Brock-Sport-Facilities. ",
+                "subCategories": []
+            }
+        ]
+    },
+    {
+        "name": "Sailing, Para-Sailing sailing, para-sailing",
+        "findAnswer": false,
+        "context": "",
+        "subCategories": [
+            {
+                "name": "Sailing, Para-Sailing",
+                "findAnswer": false,
+                "context": "Sailing is one of the Summer Games original sports, debuting at the inaugural Games in 1969. Taking place at the Niagara-on-the-Lake Sailing Club, in partnership with the Dalhousie Yacht Club, sailing will have events for both able-bodied and para-athletes. For more information about this competition please click the link provided https://www.canadagames.ca/sports/sailing.",
+                "subCategories": []
+            },
+            {
+                "name": "Location location",
+                "findAnswer": false,
+                "context": "This game is played at Niagara-on-the-Lake Sailing Club,you can find information about this location at https://niagara2022games.ca/venues#Niagara-on-the-Lake-Sailing-Club. ",
+                "subCategories": []
+            }
+        ]
+    },
+    {
+        "name": "Soccer soccer",
+        "findAnswer": false,
+        "context": "",
+        "subCategories": [
+            {
+                "name": "Soccer",
+                "findAnswer": false,
+                "context": "The world's game and all of its popularity will accompany Canada's best soccer players to Niagara in 2022, showcasing the country's best young talents. Soccer has been a part of the Canada Summer Games since they were first held in 1969. Games will be played at Youngs Sportsplex in Welland. For more information about this competition please click the link provided https://www.canadagames.ca/sports/soccer.",
+                "subCategories": []
+            },
+            {
+                "name": "Location location",
+                "findAnswer": false,
+                "context": "This game is played at Youngs Sportsplex,you can find information about this location at https://niagara2022games.ca/venues#Youngs-Sportsplex. ",
+                "subCategories": []
+            }
+        ]
+    },
+    {
+        "name": "Softball  softball ",
+        "findAnswer": false,
+        "context": "",
+        "subCategories": [
+            {
+                "name": "Softball ",
+                "findAnswer": false,
+                "context": "Softball, played at the inaugural Canada Summer Games of 1969, will continue to be played at Niagara 2022. The fast-pitch variety and its quick natured pace of play will see Canada's best players compete in front of a region known for its passionate softball community. For more information about this competition please click the link provided https://www.canadagames.ca/sports/softball.",
+                "subCategories": []
+            },
+            {
+                "name": "Location location",
+                "findAnswer": false,
+                "context": "This game is played at Southward Park,you can find information about this location at https://niagara2022games.ca/venues#Southward-Park. ",
+                "subCategories": []
+            }
+        ]
+    },
+    {
+        "name": "Swimming, Para-Swimming and Special Olympics swimming, para-swimming and special olympics",
+        "findAnswer": false,
+        "context": "",
+        "subCategories": [
+            {
+                "name": "Swimming, Para-Swimming and Special Olympics",
+                "findAnswer": false,
+                "context": "Swimming has come a long way in recent years, and is now in an exciting time for Canadian swimmers across all the provinces and territories. One of the original sports of the modern Olympic Games, swimming has been a staple of the Canada Summer Games since 1969. The event has grown at the Games to include not only able-bodied swimmers, but also para athletes and special Olympians. Swimming events will be held at Brock University at the Eleanor Misener Aquatics Centre and at the Welland International Flatwater Centre.  For more information about this competition please click the link provided https://www.canadagames.ca/sports/swimming.",
+                "subCategories": []
+            },
+            {
+                "name": "Location location",
+                "findAnswer": false,
+                "context": "This game is played at Welland International Flatwater Centre,you can find information about this location at https://niagara2022games.ca/venues#Welland-International-Flatwater-Centre. ",
+                "subCategories": []
+            }
+        ]
+    },
+    {
+        "name": "Tennis  tennis ",
+        "findAnswer": false,
+        "context": "",
+        "subCategories": [
+            {
+                "name": "Tennis ",
+                "findAnswer": false,
+                "context": "Niagara is deeply ingrained in the history of tennis in Canada. It was one of the first communities to form a tennis program and send athletes to the Canadian Championships in 1890. For the Niagara 2022 Games, tennis will be taking place at the Niagara-on-the-Lake Tennis Club and the Welland Tennis Club where Niagara will continue to develop its proud tradition of excellence in tennis.  For more information about this competition please click the link provided https://www.canadagames.ca/sports/tennis.",
+                "subCategories": []
+            },
+            {
+                "name": "Location location",
+                "findAnswer": false,
+                "context": "This game is played at Welland Tennis Club,you can find information about this location at https://niagara2022games.ca/venues#Welland-Tennis-Club. ",
+                "subCategories": []
+            }
+        ]
+    },
+    {
+        "name": "Triathlon triathlon",
+        "findAnswer": false,
+        "context": "",
+        "subCategories": [
+            {
+                "name": "Triathlon",
+                "findAnswer": false,
+                "context": "Canada has been at the forefront of triathlon ever since the sport\u2019s early days in the 1980s and 1990s. First taking place at the Canada Summer Games in 2009, triathlon consists of an endurance race of swimming, cycling and running performed in a continuous format. Triathlon will be held at the Welland International Flatwater Centre. For more information about this competition please click the link provided https://www.canadagames.ca/sports/triathlon.",
+                "subCategories": []
+            },
+            {
+                "name": "Location location",
+                "findAnswer": false,
+                "context": "This game is played at Welland International Flatwater Centre,you can find information about this location at https://niagara2022games.ca/venues#Welland-International-Flatwater-Centre. ",
+                "subCategories": []
+            }
+        ]
+    },
+    {
+        "name": "Volleyball volleyball",
+        "findAnswer": false,
+        "context": "",
+        "subCategories": [
+            {
+                "name": "Volleyball",
+                "findAnswer": false,
+                "context": "Initially played at both the Canada Summer and Winter Games, volleyball has since found its home within the summer sports program. With Canada Games Park and Niagara College Welland Campus set to be the stage in Niagara 2022, one of the world's most popular sports is guaranteed to provide entertainment with its unpredictable nature. For more information about this competition please click the link provided https://www.canadagames.ca/sports/volleyball.",
+                "subCategories": []
+            },
+            {
+                "name": "Location location",
+                "findAnswer": false,
+                "context": "This game is played at Canada Games Park,you can find information about this location at https://niagara2022games.ca/venues#Canada-Games-Park. ",
+                "subCategories": []
+            }
+        ]
+    },
+    {
+        "name": "Wrestling wrestling",
+        "findAnswer": false,
+        "context": "",
+        "subCategories": [
+            {
+                "name": "Wrestling",
+                "findAnswer": false,
+                "context": "Originally a winter sport, wrestling was featured at the first Canada Games in 1967, with women's wrestling joining the competition in 2005. For Niagara 2022, the wrestling events will take place at the new Canada Games Park, which continues a long tradition of wrestling excellence in Niagara and at Brock University.  For more information about this competition please click the link provided https://www.canadagames.ca/sports/wrestling.",
+                "subCategories": []
+            },
+            {
+                "name": "Location location",
+                "findAnswer": false,
+                "context": "This game is played at Canada Games Park,you can find information about this location at https://niagara2022games.ca/venues#Canada-Games-Park. ",
+                "subCategories": []
+            }
+        ]
+    }
 ]
