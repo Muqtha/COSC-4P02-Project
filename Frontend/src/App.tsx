@@ -53,21 +53,6 @@ const serverAddress = 'https://fiveguys.chat'
 
 const queryTimeout = 15000
 
-const defaultCategories: Category[] = [
-  {
-    name: 'Canada Games',
-    findAnswer: true,
-    context: 'The Canada Games is a multi-sport event held every two years, alternating between the Canada Winter Games and the Canada Summer Games. They represent the highest level of national competition for Canadian athletes.\n\nThe (Canada) games are from August 6th to 21st, 2022.\n\nThe Canada Games events include basketball, soccer, baseball, and hockey.',
-    subCategories: []
-  },
-  {
-    name: 'Parking',
-    findAnswer: true,
-    context: 'Parking costs $200.\n\nParking is available at Brock University.',
-    subCategories: []
-  }
-]
-
 const fileToJSON = async (file: File) => {
   return new Promise((resolve, reject) => {
     const fileReader = new FileReader()
@@ -111,7 +96,7 @@ let welcome = greetings[Math.floor(Math.random() * greet.response.length)];
 // console.log(greetings);
 
 const App = () => {
-  const [categories, setCategories] = React.useState<Category[]>(defaultCategories)
+  const [categories, setCategories] = React.useState<Category[]>([])
   const [newCategory, setNewCategory] = React.useState('')
   const [newSubCategories, setNewSubCategories] = React.useState<string[]>([])
   const [queryResults, setQueryResults] = React.useState<QueryResponse>()
@@ -387,6 +372,25 @@ const App = () => {
     }
   }
 
+  const importDefaults = async () => {
+    try {
+      const response = await fetchTimeout('https://raw.githubusercontent.com/Muqtha/COSC-4P02-Project/main/categories.json', queryTimeout)
+
+      if (response.status !== 200) throw new Error('Error in GitHub response')
+
+      const data = await response.json()
+
+      setCategories(data)
+      
+    } catch (err: any) {
+      if (err.name === 'AbortError') {
+        console.warn('Query timeout')
+      } else {
+        console.warn(err)
+      }
+    } 
+  }
+
   return (
     <ChakraProvider>
       <Box p='10'>
@@ -408,6 +412,7 @@ const App = () => {
             <Button ml='2' aria-label='Export' onClick={exportCategories}>Export</Button>
             <Button ml='2' aria-label='Import (Replace)' onClick={() => categoryImportRef.current?.click()}>Import (Replace)</Button>
             <Button ml='2' aria-label='Import (Append)' onClick={() => categoryAppendImportRef.current?.click()}>Import (Append)</Button>
+            <Button ml='2' aria-label='Import (Replace) from GitHub' onClick={importDefaults}>Import (Replace) from GitHub</Button>
             <input type='file' accept='.json, .txt' style={{ display: 'none' }} ref={categoryImportRef} onChange={(e) => importCategories(e, false)} />
             <input type='file' accept='.json, .txt' style={{ display: 'none' }} ref={categoryAppendImportRef} onChange={(e) => importCategories(e, true)} />
             <Heading p='1' size='lg'>Categories</Heading>
