@@ -35,7 +35,7 @@
 33. As a manager, I would like for the bot to properly understand user input.
 34. As a manager, I would the bot to provide a reliable source for questions it cannot answer directly.
 35. As a user, I want the bot to provide event locations.
-36. As a user, I would like the bot be relatively quick in responding.
+36. As a user, I would like for the bot be relatively quick in responding.
 37. As a user, I would like a clear indication from the bot that it has received my input.
 38. As a manager, I would the software to be accessed on multiple devices.
 39. As a user, I would like an appealing visual appearance to the software.
@@ -45,7 +45,13 @@
 43. As an user, I would like to be able to request the schedule of events I am registered for, so I can keep track of my schedule.
 44. As a manager, I would like the bot to direct any questions that it doesn’t understand after a few attempts, to an available dev, so that the user can get the help they need.
 45. As a spectator, I would like to be able to request the venue of a specific event, so that I may spectate it
-46. As a manager, I would like to be able to view logs of chatbot conversations, so I am aware of any issues.t.
+46. As a manager, I would like to be able to view logs of chatbot conversations, so I am aware of any issues.
 47. As a developer, I would like the bot to respond to some hidden test statements, for debugging purposes as a sort of live test.
 48. As a spectator, I would like the bot to inform me of all headliner events, so that I may attend them if I choose. 
-
+49. As a developer, I would like the bot to recognize athlete names in order to fully understand and return the appropriate answer to a query.
+50. As a manager, I would like the chatbot to work seamlessly on a mobile device and for its appearance to be appealing.
+51. As a spectator, I would like to communicate with the chatbot in French since I am from Quebec and it would make it easier to find events.
+52. As a developer, I want to have the data in an easy to read and understand format for ease of access for the chatbot.
+53. As a developer, I would like to import one json file that can be updated so there is no loss of information.
+54. As a manager, I want the chatbot to give the user sufficient responses so they are not frustrated.
+55. As a developer, I would like the chatbot to provide a relevant link for the user to click on.
