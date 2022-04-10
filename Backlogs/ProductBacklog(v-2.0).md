@@ -13,7 +13,7 @@
 	- Connect with front end
 - Improve interaction
 - Connect and search through DB and return results
-- Ensure Chatbot does not go down aftera while
+- Ensure Chatbot does not go down after a while
 
 # Product Backlog
 
