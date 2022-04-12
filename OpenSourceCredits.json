@@ -1,0 +1,109 @@
+{
+  "dependencies": {
+    "@chakra-ui/icons": {
+      "license": "MIT",
+      "url": "https://github.com/chakra-ui/chakra-ui",
+      "version": "^1.1.1"
+    },
+    "@chakra-ui/react": {
+      "license": "MIT",
+      "url": "https://github.com/chakra-ui/chakra-ui",
+      "version": "^1.7.4"
+    },
+    "@emotion/react": {
+      "license": "MIT",
+      "url": "https://github.com/emotion-js/emotion/tree/main/packages/react",
+      "version": "^11.7.1"
+    },
+    "@emotion/styled": {
+      "license": "MIT",
+      "url": "https://github.com/emotion-js/emotion/tree/main/packages/styled",
+      "version": "^11.6.0"
+    },
+    "@testing-library/jest-dom": {
+      "license": "MIT",
+      "url": "https://github.com/testing-library/jest-dom",
+      "version": "^5.16.1"
+    },
+    "@testing-library/react": {
+      "license": "MIT",
+      "url": "https://github.com/testing-library/react-testing-library",
+      "version": "^12.1.2"
+    },
+    "@testing-library/user-event": {
+      "license": "MIT",
+      "url": "https://github.com/testing-library/user-event",
+      "version": "^13.5.0"
+    },
+    "@types/jest": {
+      "license": "MIT",
+      "url": "https://github.com/DefinitelyTyped/DefinitelyTyped",
+      "version": "^27.4.0"
+    },
+    "@types/node": {
+      "license": "MIT",
+      "url": "https://github.com/DefinitelyTyped/DefinitelyTyped",
+      "version": "^16.11.19"
+    },
+    "@types/react": {
+      "license": "MIT",
+      "url": "https://github.com/DefinitelyTyped/DefinitelyTyped",
+      "version": "^17.0.38"
+    },
+    "@types/react-dom": {
+      "license": "MIT",
+      "url": "https://github.com/DefinitelyTyped/DefinitelyTyped",
+      "version": "^17.0.11"
+    },
+    "focus-visible": {
+      "license": "W3C",
+      "url": "https://github.com/WICG/focus-visible",
+      "version": "^5.2.0"
+    },
+    "framer-motion": {
+      "license": "MIT",
+      "url": "https://github.com/framer/motion",
+      "version": "^5.6.0"
+    },
+    "linkify-react": {
+      "license": "MIT",
+      "url": "https://github.com/Hypercontext/linkifyjs",
+      "version": "^3.0.4"
+    },
+    "linkifyjs": {
+      "license": "MIT",
+      "url": "https://github.com/Hypercontext/linkifyjs",
+      "version": "^3.0.5"
+    },
+    "react": {
+      "license": "MIT",
+      "url": "https://github.com/facebook/react",
+      "version": "^17.0.2"
+    },
+    "react-dom": {
+      "license": "MIT",
+      "url": "https://github.com/facebook/react",
+      "version": "^17.0.2"
+    },
+    "react-scripts": {
+      "license": "MIT",
+      "url": "https://github.com/facebook/create-react-app",
+      "version": "5.0.0"
+    },
+    "react-textarea-autosize": {
+      "license": "MIT",
+      "url": "https://github.com/Andarist/react-textarea-autosize",
+      "version": "^8.3.3"
+    },
+    "typescript": {
+      "license": "Apache-2.0",
+      "url": "https://github.com/Microsoft/TypeScript",
+      "version": "^4.5.4"
+    },
+    "web-vitals": {
+      "license": "Apache-2.0",
+      "url": "https://github.com/GoogleChrome/web-vitals",
+      "version": "^2.1.3"
+    }
+  }
+}
