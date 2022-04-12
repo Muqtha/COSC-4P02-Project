@@ -109,7 +109,7 @@ const Chatbot = ({ chatLog, setChatLog, query, waitingForResponse }: ChatbotProp
           <VStack>
             {chatLog.map((chat, index) => (
               <Tag colorScheme={chat.type === 'question' ? 'blue': 'gray'} variant={chat.type === 'question' ? 'solid': 'subtle'} size='lg' key={index} alignSelf={chat.type === 'question' ? 'flex-end' : 'flex-start'}>
-                <TagLabel isTruncated={false}><Linkify options={{ className: colorMode === 'light' ? 'text-link' : 'text-link-dark', target: '_blank' }}>{chat.message}</Linkify></TagLabel>
+                <TagLabel maxWidth='100%' isTruncated={false}><Linkify options={{ className: colorMode === 'light' ? 'text-link' : 'text-link-dark', target: '_blank' }}>{chat.message}</Linkify></TagLabel>
               </Tag>
             ))}
             {waitingForResponse && 
