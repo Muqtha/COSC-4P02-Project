@@ -77,7 +77,9 @@ const Chatbot = ({ chatLog, setChatLog, query, waitingForResponse }: ChatbotProp
     >
       <PopoverTrigger>
         <Button 
-          colorScheme='blue'
+          // colorScheme='blue'
+          _hover={{ bgColor: 'blue.700' }}
+          bgColor='blue.900'
           leftIcon={<ChatIcon />} 
           pos='fixed'
           bottom='40px'
