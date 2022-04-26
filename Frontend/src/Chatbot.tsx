@@ -79,6 +79,7 @@ const Chatbot = ({ chatLog, setChatLog, query, waitingForResponse }: ChatbotProp
         <Button 
           // colorScheme='blue'
           _hover={{ bgColor: 'blue.700' }}
+          color='white'
           bgColor='blue.900'
           leftIcon={<ChatIcon />} 
           pos='fixed'
