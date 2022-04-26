@@ -1194,6 +1194,12 @@
     ]
   },
   {
+    "name": "What to ask",
+    "findAnswer": false,
+    "context": "Here is a list of what you can ask about:\n-Where are the Canada games?\n-What sports are being played?\n-Tell me about the Canada games events\n-When are the Niagara 2022 games?\n-Tell me about wrestling\n-What are the venues?\n-Tell me about the Canada games/ Niagara games\n-How do I get to Niagara? \n-How do I get to the Canada Games Park?\nAnd some more questions about the Canada games, Venues, Transportation, Niagara 2022 Games, and Sports.",
+    "subCategories": []
+  },
+  {
     "name": "Wrestling wrestling",
     "findAnswer": false,
     "context": "",
